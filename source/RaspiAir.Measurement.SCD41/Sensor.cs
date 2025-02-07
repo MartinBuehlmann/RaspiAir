@@ -1,9 +1,6 @@
-﻿using Meadow;
-using Meadow.Units;
+﻿namespace RaspiAir.Measurement.SCD41;
 
-namespace RaspiAir.Measurement.SCD41;
-
-using Meadow.Devices;
+using Meadow;
 using Meadow.Foundation.Sensors.Environmental;
 using Meadow.Hardware;
 using RaspiAir.Common.Logging;
@@ -18,7 +15,7 @@ internal class Sensor : ISensor
         this.logger = logger;
     }
 
-    public event Action<SensorData> OnDataReceived;
+    public event Action<SensorData>? OnDataReceived;
 
     public void Start()
     {
@@ -38,10 +35,11 @@ internal class Sensor : ISensor
             },
             filter: result =>
             {
-                if (result.Old?.Temperature is { } oldTemp &&
-                    result.Old?.Humidity is { } oldHumidity &&
-                    result.New.Temperature is { } newTemp &&
-                    result.New.Humidity is { } newHumidity)
+                if (result is
+                    {
+                        Old: { Temperature: { } oldTemp, Humidity: { } oldHumidity },
+                        New: { Temperature: { } newTemp, Humidity: { } newHumidity }
+                    })
                 {
                     return (newTemp - oldTemp).Abs().Celsius > 0.5 &&
                            (newHumidity - oldHumidity).Percent > 0.05;
@@ -49,7 +47,6 @@ internal class Sensor : ISensor
 
                 return false;
             });
-
 
         if (this.sensor != null)
         {
@@ -61,7 +58,7 @@ internal class Sensor : ISensor
                 this.logger.Info("Temperature: {Temperature:N1}C", result.New.Temperature?.Celsius!);
                 this.logger.Info("Relative Humidity: {Humidity:N0}%", result.New.Humidity!);
 
-                this.OnDataReceived.Invoke(
+                this.OnDataReceived?.Invoke(
                     new SensorData(
                         (int)result.New.Concentration?.PartsPerMillion!,
                         (double)result.New.Temperature?.Celsius!,

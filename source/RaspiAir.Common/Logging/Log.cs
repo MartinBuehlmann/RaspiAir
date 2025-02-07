@@ -1,7 +1,7 @@
-﻿using Serilog;
-using Serilog.Core;
+﻿namespace RaspiAir.Common.Logging;
 
-namespace RaspiAir.Common.Logging;
+using Serilog;
+using Serilog.Core;
 
 public class Log
 {

@@ -10,6 +10,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Common", "RaspiAir
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Application", "RaspiAir.Application\RaspiAir.Application.csproj", "{190CD84D-1E53-45B7-83AD-E67A344F75BE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Startup", "Startup", "{6EB693B3-63BF-489E-BE16-7CFE89389525}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{C2EECD41-91E2-4631-973D-1B2DBCBA28CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +40,9 @@ Global
 		{190CD84D-1E53-45B7-83AD-E67A344F75BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{190CD84D-1E53-45B7-83AD-E67A344F75BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{190CD84D-1E53-45B7-83AD-E67A344F75BE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D07780A1-CEF7-44F0-9DF4-FA7DB6214C87} = {6EB693B3-63BF-489E-BE16-7CFE89389525}
+		{06BEAAC0-A99E-4B55-8E38-9606D0D543BE} = {C2EECD41-91E2-4631-973D-1B2DBCBA28CD}
 	EndGlobalSection
 EndGlobal

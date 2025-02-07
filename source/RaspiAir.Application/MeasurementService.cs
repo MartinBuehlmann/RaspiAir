@@ -1,7 +1,6 @@
-﻿using RaspiAir.Measurement;
+﻿namespace RaspiAir.Application;
 
-namespace RaspiAir.Application;
-
+using RaspiAir.Measurement;
 using RaspiRobot.Lights.Common;
 
 internal class MeasurementService : IBackgroundService
@@ -25,6 +24,7 @@ internal class MeasurementService : IBackgroundService
     public Task StopAsync(CancellationToken cancellationToken)
     {
         this.sensor.OnDataReceived -= this.HandleSensorDataReceived;
+        this.sensor.Stop();
         return Task.CompletedTask;
     }
 
@@ -34,11 +34,14 @@ internal class MeasurementService : IBackgroundService
 
         Console.WriteLine($"Humidity   : {sensorData.Humidity:N1}%");
 
-        Console.ForegroundColor = sensorData.PartsPerMillion < 400 ? ConsoleColor.DarkGreen :
+        Console.Write("CO2        : ");
+        Console.ForegroundColor =
+            sensorData.PartsPerMillion < 400 ? ConsoleColor.DarkGreen :
             sensorData.PartsPerMillion < 1000 ? ConsoleColor.Green :
             sensorData.PartsPerMillion < 2000 ? ConsoleColor.Yellow :
-            sensorData.PartsPerMillion < 4000 ? ConsoleColor.DarkYellow : ConsoleColor.Red;
-        Console.WriteLine($"CO2        : {sensorData.PartsPerMillion}ppm");
+            sensorData.PartsPerMillion < 4000 ? ConsoleColor.DarkYellow :
+            ConsoleColor.Red;
+        Console.WriteLine($"{sensorData.PartsPerMillion}ppm");
         Console.ResetColor();
     }
 }
