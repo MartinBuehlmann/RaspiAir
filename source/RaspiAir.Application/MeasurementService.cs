@@ -31,7 +31,14 @@ internal class MeasurementService : IBackgroundService
     private void HandleSensorDataReceived(SensorData sensorData)
     {
         Console.WriteLine($"Temperature: {sensorData.Celsius:N2}C");
+
         Console.WriteLine($"Humidity   : {sensorData.Humidity:N1}%");
+
+        Console.ForegroundColor = sensorData.PartsPerMillion < 400 ? ConsoleColor.DarkGreen :
+            sensorData.PartsPerMillion < 1000 ? ConsoleColor.Green :
+            sensorData.PartsPerMillion < 2000 ? ConsoleColor.Yellow :
+            sensorData.PartsPerMillion < 4000 ? ConsoleColor.DarkYellow : ConsoleColor.Red;
         Console.WriteLine($"CO2        : {sensorData.PartsPerMillion}ppm");
+        Console.ResetColor();
     }
 }
