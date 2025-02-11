@@ -12,7 +12,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Meadow.F7" />
       <PackageReference Include="Meadow.Foundation.Sensors.Environmental.Scd4x" />
       <PackageReference Include="Meadow.Linux" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />

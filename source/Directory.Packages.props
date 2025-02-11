@@ -10,7 +10,6 @@
   </ItemGroup>
   <ItemGroup Label="PackageVersions">
     <PackageVersion Include="Iot.Device.Bindings" Version="3.2.0" />
-    <PackageVersion Include="Meadow.F7" Version="2.0.1.2" />
     <PackageVersion Include="Meadow.Foundation.Sensors.Environmental.Scd4x" Version="2.0.1.2" />
     <PackageVersion Include="Meadow.Linux" Version="2.0.1.2" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.1" />

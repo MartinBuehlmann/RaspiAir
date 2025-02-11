@@ -37,12 +37,13 @@ internal class Sensor : ISensor
             {
                 if (result is
                     {
-                        Old: { Temperature: { } oldTemp, Humidity: { } oldHumidity },
-                        New: { Temperature: { } newTemp, Humidity: { } newHumidity }
+                        Old: { Temperature: { } oldTemp, Humidity: { } oldHumidity, Concentration: { } oldConcentration },
+                        New: { Temperature: { } newTemp, Humidity: { } newHumidity, Concentration: { } newConcentration },
                     })
                 {
-                    return (newTemp - oldTemp).Abs().Celsius > 0.5 &&
-                           (newHumidity - oldHumidity).Percent > 0.05;
+                    return (newTemp - oldTemp).Abs().Celsius >= 0.1 &&
+                           (newHumidity - oldHumidity).Abs().Percent >= 0.1 &&
+                           (newConcentration - oldConcentration).Abs().PartsPerMillion >= 1;
                 }
 
                 return false;
