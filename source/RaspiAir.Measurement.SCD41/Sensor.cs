@@ -3,6 +3,7 @@
 using Meadow;
 using Meadow.Foundation.Sensors.Environmental;
 using Meadow.Hardware;
+using Meadow.Units;
 using RaspiAir.Common.Logging;
 
 internal class Sensor : ISensor
@@ -15,59 +16,70 @@ internal class Sensor : ISensor
         this.logger = logger;
     }
 
-    public event Action<SensorData>? OnDataReceived;
+    public event Action<double>? OnTemperatureChanged;
+
+    public event Action<double>? OnHumidityChanged;
+
+    public event Action<double>? OnConcentrationChanged;
 
     public void Start()
     {
-        II2cBus i2cBus = new RaspberryPi().CreateI2cBus();
-        this.sensor = new Scd41(i2cBus);
+        II2cBus i2CBus = new RaspberryPi().CreateI2cBus();
+        this.sensor = new Scd41(i2CBus);
 
         var serial = BitConverter.ToString(this.sensor.GetSerialNumber());
         this.logger.Info("SCD41 Serial: {Serial}", serial);
 
-        var consumer = Scd41.CreateObserver(
-            handler: result =>
-            {
-                this.logger.Info(
-                    "Observer: Temp changed by threshold; new temp: {NewTemperature:N2}C, old: {OldTemperature:N2}C",
-                    result.New.Temperature?.Celsius!,
-                    result.Old?.Temperature?.Celsius!);
-            },
-            filter: result =>
-            {
-                if (result is
-                    {
-                        Old: { Temperature: { } oldTemp, Humidity: { } oldHumidity, Concentration: { } oldConcentration },
-                        New: { Temperature: { } newTemp, Humidity: { } newHumidity, Concentration: { } newConcentration },
-                    })
-                {
-                    return (newTemp - oldTemp).Abs().Celsius >= 0.1 &&
-                           (newHumidity - oldHumidity).Abs().Percent >= 0.1 &&
-                           (newConcentration - oldConcentration).Abs().PartsPerMillion >= 1;
-                }
+        var temperatureConsumer = this.CreateObserver(
+            x => x.New.Temperature?.Celsius,
+            x => x.Old?.Temperature?.Celsius,
+            x => this.OnTemperatureChanged?.Invoke(x),
+            0.1);
 
-                return false;
-            });
+        var humidityConsumer = this.CreateObserver(
+            x => x.New.Humidity?.Percent,
+            x => x.Old?.Humidity?.Percent,
+            x => this.OnHumidityChanged?.Invoke(x),
+            0.1);
+
+        var concentrationConsumer = this.CreateObserver(
+            x => x.New.Concentration?.PartsPerMillion,
+            x => x.Old?.Concentration?.PartsPerMillion,
+            x => this.OnConcentrationChanged?.Invoke(x),
+            1);
 
         if (this.sensor != null)
         {
-            this.sensor.Subscribe(consumer);
-
-            this.sensor.Updated += (_, result) =>
-            {
-                this.logger.Info("Concentration: {Concentration:N0}ppm", result.New.Concentration?.PartsPerMillion!);
-                this.logger.Info("Temperature: {Temperature:N1}C", result.New.Temperature?.Celsius!);
-                this.logger.Info("Relative Humidity: {Humidity:N0}%", result.New.Humidity!);
-
-                this.OnDataReceived?.Invoke(
-                    new SensorData(
-                        (int)result.New.Concentration?.PartsPerMillion!,
-                        (double)result.New.Temperature?.Celsius!,
-                        result.New.Humidity!.Value.Percent));
-            };
-
+            this.sensor.Subscribe(temperatureConsumer);
+            this.sensor.Subscribe(humidityConsumer);
+            this.sensor.Subscribe(concentrationConsumer);
             this.sensor.StartUpdating(TimeSpan.FromSeconds(6));
         }
+    }
+
+    private FilterableChangeObserver<
+            (Concentration? Concentration, Temperature? Temperature, RelativeHumidity? Humidity)>
+        CreateObserver(
+            Func<IChangeResult<(Concentration? Concentration, Temperature? Temperature, RelativeHumidity? Humidity)>,
+                double?> newValueSelector,
+            Func<IChangeResult<(Concentration? Concentration, Temperature? Temperature, RelativeHumidity? Humidity)>,
+                double?> oldValueSelector,
+            Action<double>? onChangedHandler,
+            double threshold = 0.1)
+    {
+        return Scd41.CreateObserver(
+            handler: result => { onChangedHandler?.Invoke(newValueSelector(result)!.Value); },
+            filter: result =>
+            {
+                if (oldValueSelector(result) is null || newValueSelector(result) is null)
+                {
+                    return false;
+                }
+
+                double newValue = newValueSelector(result)!.Value;
+                double oldValue = oldValueSelector(result)!.Value;
+                return Math.Abs(newValue - oldValue) >= threshold;
+            });
     }
 
     public void Stop()

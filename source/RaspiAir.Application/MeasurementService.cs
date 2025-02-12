@@ -17,31 +17,41 @@ internal class MeasurementService : IBackgroundService
     public Task StartAsync(CancellationToken cancellationToken)
     {
         this.sensor.Start();
-        this.sensor.OnDataReceived += this.HandleSensorDataReceived;
+        this.sensor.OnTemperatureChanged += this.HandleTemperatureChanged;
+        this.sensor.OnHumidityChanged += this.HandleHumidityChanged;
+        this.sensor.OnConcentrationChanged += this.HandleConcentrationChanged;
         return Task.CompletedTask;
     }
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        this.sensor.OnDataReceived -= this.HandleSensorDataReceived;
+        this.sensor.OnTemperatureChanged -= this.HandleTemperatureChanged;
+        this.sensor.OnHumidityChanged -= this.HandleHumidityChanged;
+        this.sensor.OnConcentrationChanged -= this.HandleConcentrationChanged;
         this.sensor.Stop();
         return Task.CompletedTask;
     }
 
-    private void HandleSensorDataReceived(SensorData sensorData)
+    private void HandleTemperatureChanged(double value)
     {
-        Console.WriteLine($"Temperature: {sensorData.Celsius:N2}C");
+        Console.WriteLine($"Temperature: {value:N1}C");
+    }
 
-        Console.WriteLine($"Humidity   : {sensorData.Humidity:N1}%");
+    private void HandleHumidityChanged(double value)
+    {
+        Console.WriteLine($"Humidity   : {value:N1}%");
+    }
 
+    private void HandleConcentrationChanged(double value)
+    {
         Console.Write("CO2        : ");
         Console.ForegroundColor =
-            sensorData.PartsPerMillion < 400 ? ConsoleColor.DarkGreen :
-            sensorData.PartsPerMillion < 1000 ? ConsoleColor.Green :
-            sensorData.PartsPerMillion < 2000 ? ConsoleColor.Yellow :
-            sensorData.PartsPerMillion < 4000 ? ConsoleColor.DarkYellow :
+            value < 400 ? ConsoleColor.DarkGreen :
+            value < 1000 ? ConsoleColor.Green :
+            value < 2000 ? ConsoleColor.Yellow :
+            value < 4000 ? ConsoleColor.DarkYellow :
             ConsoleColor.Red;
-        Console.WriteLine($"{sensorData.PartsPerMillion}ppm");
+        Console.WriteLine($"{value}ppm");
         Console.ResetColor();
     }
 }
