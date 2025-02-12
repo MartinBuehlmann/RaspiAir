@@ -57,6 +57,16 @@ internal class Sensor : ISensor
         }
     }
 
+    public void Stop()
+    {
+        if (this.sensor == null)
+        {
+            throw new InvalidOperationException("Sensor does not exist or has not been started.");
+        }
+
+        this.sensor.StopUpdating();
+    }
+
     private FilterableChangeObserver<
             (Concentration? Concentration, Temperature? Temperature, RelativeHumidity? Humidity)>
         CreateObserver(
@@ -80,15 +90,5 @@ internal class Sensor : ISensor
                 double oldValue = oldValueSelector(result)!.Value;
                 return Math.Abs(newValue - oldValue) >= threshold;
             });
-    }
-
-    public void Stop()
-    {
-        if (this.sensor == null)
-        {
-            throw new InvalidOperationException("Sensor does not exist or has not been started.");
-        }
-
-        this.sensor.StopUpdating();
     }
 }
