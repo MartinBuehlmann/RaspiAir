@@ -1,4 +1,6 @@
-﻿namespace RaspiAir.Measurement;
+﻿namespace RaspiAir.Sensors;
+
+using System;
 
 public interface ISensor
 {

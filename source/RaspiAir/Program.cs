@@ -1,14 +1,15 @@
+namespace RaspiAir;
+
 using System;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RaspiAir;
-using RaspiAir.Application;
 using RaspiAir.BackgroundServices;
 using RaspiAir.Common;
-using RaspiAir.Measurement.SCD41;
+using RaspiAir.Measurement;
+using RaspiAir.Sensors.Scd41;
 using Serilog;
 
 public static class Program

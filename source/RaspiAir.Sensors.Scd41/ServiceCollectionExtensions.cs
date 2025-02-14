@@ -1,4 +1,4 @@
-﻿namespace RaspiAir.Measurement.SCD41;
+﻿namespace RaspiAir.Sensors.Scd41;
 
 using Microsoft.Extensions.DependencyInjection;
 

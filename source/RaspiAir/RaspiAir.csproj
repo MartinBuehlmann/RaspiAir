@@ -10,8 +10,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\RaspiAir.Application\RaspiAir.Application.csproj" />
+      <ProjectReference Include="..\RaspiAir.Measurement\RaspiAir.Measurement.csproj" />
       <ProjectReference Include="..\RaspiAir.Common\RaspiAir.Common.csproj" />
-      <ProjectReference Include="..\RaspiAir.Measurement.SCD41\RaspiAir.Measurement.SCD41.csproj" />
+      <ProjectReference Include="..\RaspiAir.Sensors.Scd41\RaspiAir.Sensors.Scd41.csproj" />
     </ItemGroup>
 </Project>

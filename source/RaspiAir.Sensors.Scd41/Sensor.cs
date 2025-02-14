@@ -1,7 +1,7 @@
-﻿namespace RaspiAir.Measurement.SCD41;
+﻿namespace RaspiAir.Sensors.Scd41;
 
+using System;
 using Meadow;
-using Meadow.Foundation.Sensors.Environmental;
 using Meadow.Hardware;
 using Meadow.Units;
 using RaspiAir.Common.Logging;
@@ -9,7 +9,7 @@ using RaspiAir.Common.Logging;
 internal class Sensor : ISensor
 {
     private readonly Log logger;
-    private Scd41? sensor;
+    private Meadow.Foundation.Sensors.Environmental.Scd41? sensor;
 
     public Sensor(Log logger)
     {
@@ -25,7 +25,7 @@ internal class Sensor : ISensor
     public void Start()
     {
         II2cBus i2CBus = new RaspberryPi().CreateI2cBus();
-        this.sensor = new Scd41(i2CBus);
+        this.sensor = new Meadow.Foundation.Sensors.Environmental.Scd41(i2CBus);
 
         var serial = BitConverter.ToString(this.sensor.GetSerialNumber());
         this.logger.Info("SCD41 Serial: {Serial}", serial);
@@ -33,14 +33,12 @@ internal class Sensor : ISensor
         var temperatureConsumer = this.CreateObserver(
             x => x.New.Temperature?.Celsius,
             x => x.Old?.Temperature?.Celsius,
-            x => this.OnTemperatureChanged?.Invoke(x),
-            0.1);
+            x => this.OnTemperatureChanged?.Invoke(x));
 
         var humidityConsumer = this.CreateObserver(
             x => x.New.Humidity?.Percent,
             x => x.Old?.Humidity?.Percent,
-            x => this.OnHumidityChanged?.Invoke(x),
-            0.1);
+            x => this.OnHumidityChanged?.Invoke(x));
 
         var concentrationConsumer = this.CreateObserver(
             x => x.New.Concentration?.PartsPerMillion,
@@ -77,7 +75,7 @@ internal class Sensor : ISensor
             Action<double>? onChangedHandler,
             double threshold = 0.1)
     {
-        return Scd41.CreateObserver(
+        return Meadow.Foundation.Sensors.Environmental.Scd41.CreateObserver(
             handler: result => { onChangedHandler?.Invoke(newValueSelector(result)!.Value); },
             filter: result =>
             {

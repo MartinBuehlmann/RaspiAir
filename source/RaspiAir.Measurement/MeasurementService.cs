@@ -1,6 +1,9 @@
-﻿namespace RaspiAir.Application;
+﻿namespace RaspiAir.Measurement;
 
-using RaspiAir.Measurement;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using RaspiAir.Sensors;
 using RaspiRobot.Lights.Common;
 
 internal class MeasurementService : IBackgroundService

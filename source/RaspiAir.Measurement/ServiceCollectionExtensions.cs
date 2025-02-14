@@ -1,4 +1,4 @@
-﻿namespace RaspiAir.Application;
+﻿namespace RaspiAir.Measurement;
 
 using Microsoft.Extensions.DependencyInjection;
 using RaspiRobot.Lights.Common;
