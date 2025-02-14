@@ -1,3 +1,5 @@
+using EventBroker;
+
 namespace RaspiAir;
 
 using System;
@@ -8,7 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RaspiAir.BackgroundServices;
 using RaspiAir.Common;
-using RaspiAir.Measurement;
+using RaspiAir.Measurement.Services;
+using RaspiAir.Reporting.Services;
 using RaspiAir.Sensors.Scd41;
 using Serilog;
 
@@ -49,7 +52,9 @@ public static class Program
                 (_, services)
                     => services
                         .AddRaspiAirCommon()
-                        .AddMeasurementApplication()
+                        .AddEventBroker()
+                        .AddMeasurementServices()
+                        .AddReportingServices()
 #if DEBUG
                         .AddMeasurementScd41()
 #else

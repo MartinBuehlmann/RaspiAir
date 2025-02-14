@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Sensors.Scd41", "R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Common", "RaspiAir.Common\RaspiAir.Common.csproj", "{06BEAAC0-A99E-4B55-8E38-9606D0D543BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Measurement", "RaspiAir.Measurement\RaspiAir.Measurement.csproj", "{190CD84D-1E53-45B7-83AD-E67A344F75BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Measurement.Services", "RaspiAir.Measurement.Services\RaspiAir.Measurement.Services.csproj", "{190CD84D-1E53-45B7-83AD-E67A344F75BE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Startup", "Startup", "{6EB693B3-63BF-489E-BE16-7CFE89389525}"
 EndProject
@@ -24,7 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Co2TrafficLight", "Co2Traff
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Co2TrafficLight", "RaspiAir.Co2TrafficLight\RaspiAir.Co2TrafficLight.csproj", "{A45B7382-FBE5-452D-A088-1E19A4A818C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Reporting", "RaspiAir.Reporting\RaspiAir.Reporting.csproj", "{C14927B0-6B03-4D18-BEB6-46D310EAECD0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Reporting.Services", "RaspiAir.Reporting.Services\RaspiAir.Reporting.Services.csproj", "{C14927B0-6B03-4D18-BEB6-46D310EAECD0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBroker", "EventBroker\EventBroker.csproj", "{7881B10F-3700-4849-916A-0940C52E7C2F}"
 EndProject
@@ -35,6 +35,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LedStripeControl.Demo", "LedStripeControl.Demo\LedStripeControl.Demo.csproj", "{8C2AE6EE-1F1A-464A-8095-C57952C9877D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LedStripeControl.Ws2812B", "LedStripeControl.Ws2812B\LedStripeControl.Ws2812B.csproj", "{1924FFA6-2835-4502-AF4F-738EFAE848F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Measurement", "RaspiAir.Measurement\RaspiAir.Measurement.csproj", "{960615A7-37FA-492A-93B3-48E88B238F13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -86,6 +88,10 @@ Global
 		{1924FFA6-2835-4502-AF4F-738EFAE848F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1924FFA6-2835-4502-AF4F-738EFAE848F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1924FFA6-2835-4502-AF4F-738EFAE848F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{960615A7-37FA-492A-93B3-48E88B238F13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{960615A7-37FA-492A-93B3-48E88B238F13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{960615A7-37FA-492A-93B3-48E88B238F13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{960615A7-37FA-492A-93B3-48E88B238F13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D07780A1-CEF7-44F0-9DF4-FA7DB6214C87} = {6EB693B3-63BF-489E-BE16-7CFE89389525}
@@ -103,5 +109,6 @@ Global
 		{8C2AE6EE-1F1A-464A-8095-C57952C9877D} = {AF68C51F-6D82-41A4-9BE3-EAC92246DDF7}
 		{1924FFA6-2835-4502-AF4F-738EFAE848F9} = {AF68C51F-6D82-41A4-9BE3-EAC92246DDF7}
 		{190CD84D-1E53-45B7-83AD-E67A344F75BE} = {990E3A12-2F7A-4ABF-AD92-612079A2BA40}
+		{960615A7-37FA-492A-93B3-48E88B238F13} = {990E3A12-2F7A-4ABF-AD92-612079A2BA40}
 	EndGlobalSection
 EndGlobal
