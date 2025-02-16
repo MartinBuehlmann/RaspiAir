@@ -8,7 +8,7 @@ public interface ISensor
 
     event Action<double>? OnHumidityChanged;
 
-    event Action<double>? OnCo2ConcentrationChanged;
+    event Action<int>? OnCo2ConcentrationChanged;
 
     void Start();
 

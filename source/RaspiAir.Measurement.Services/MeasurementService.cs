@@ -52,7 +52,7 @@ internal class MeasurementService : IBackgroundService
             new HumidityChangedEvent(value, DateTimeOffset.UtcNow));
     }
 
-    private void HandleCo2ConcentrationChanged(double value)
+    private void HandleCo2ConcentrationChanged(int value)
     {
         this.eventBroker.Publish(
             new Co2ConcentrationChangedEvent(value, DateTimeOffset.UtcNow));

@@ -1,9 +1,10 @@
-using EventBroker;
+using DocumentStorage.FileBased;
 
 namespace RaspiAir;
 
 using System;
 using System.IO;
+using EventBroker;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -53,6 +54,7 @@ public static class Program
                     => services
                         .AddRaspiAirCommon()
                         .AddEventBroker()
+                        .AddFileBasedDocumentStorage()
                         .AddMeasurementServices()
                         .AddReportingServices()
 #if DEBUG

@@ -10,6 +10,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\DocumentStorage.FileBased\DocumentStorage.FileBased.csproj" />
       <ProjectReference Include="..\RaspiAir.Measurement.Services\RaspiAir.Measurement.Services.csproj" />
       <ProjectReference Include="..\RaspiAir.Common\RaspiAir.Common.csproj" />
       <ProjectReference Include="..\RaspiAir.Reporting.Services\RaspiAir.Reporting.Services.csproj" />

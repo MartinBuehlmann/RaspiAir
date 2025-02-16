@@ -20,7 +20,7 @@ internal class Sensor : ISensor
 
     public event Action<double>? OnHumidityChanged;
 
-    public event Action<double>? OnCo2ConcentrationChanged;
+    public event Action<int>? OnCo2ConcentrationChanged;
 
     public void Start()
     {
@@ -43,7 +43,7 @@ internal class Sensor : ISensor
         var concentrationConsumer = this.CreateObserver(
             x => x.New.Concentration?.PartsPerMillion,
             x => x.Old?.Concentration?.PartsPerMillion,
-            x => this.OnCo2ConcentrationChanged?.Invoke(x),
+            x => this.OnCo2ConcentrationChanged?.Invoke((int)x),
             1);
 
         if (this.sensor != null)
@@ -51,7 +51,7 @@ internal class Sensor : ISensor
             this.sensor.Subscribe(temperatureConsumer);
             this.sensor.Subscribe(humidityConsumer);
             this.sensor.Subscribe(concentrationConsumer);
-            this.sensor.StartUpdating(TimeSpan.FromSeconds(6));
+            this.sensor.StartUpdating(TimeSpan.FromSeconds(10));
         }
     }
 

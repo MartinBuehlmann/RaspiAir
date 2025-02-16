@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventBroker;
 using RaspiAir.Measurement;
+using RaspiAir.Reporting.Services.Entities;
 using RaspiRobot.Lights.Common;
 
 internal class ReportingObserverService :
@@ -15,10 +16,14 @@ internal class ReportingObserverService :
 {
     private readonly Lock locker = new();
     private readonly EventSubscriber eventSubscriber;
+    private readonly ReportingRepository repository;
 
-    public ReportingObserverService(EventSubscriber eventSubscriber)
+    public ReportingObserverService(
+        EventSubscriber eventSubscriber,
+        ReportingRepository repository)
     {
         this.eventSubscriber = eventSubscriber;
+        this.repository = repository;
     }
 
     public int Order => 5;
@@ -35,21 +40,22 @@ internal class ReportingObserverService :
         return Task.CompletedTask;
     }
 
-    public Task HandleAsync(TemperatureChangedEvent data)
+    public async Task HandleAsync(TemperatureChangedEvent data)
     {
+        await this.repository.SaveAsync(new TemperatureMeasurementEntity(data.Temperature, data.Timestamp));
         this.WriteToConsole(() =>
             Console.WriteLine($"{data.Timestamp.LocalDateTime}: Temperature: {data.Temperature:N1}C"));
-        return Task.CompletedTask;
     }
 
-    public Task HandleAsync(HumidityChangedEvent data)
+    public async Task HandleAsync(HumidityChangedEvent data)
     {
+        await this.repository.SaveAsync(new HumidityMeasurementEntity(data.Humidity, data.Timestamp));
         this.WriteToConsole(() => Console.WriteLine($"{data.Timestamp.LocalDateTime}: Humidity   : {data.Humidity:N1}%"));
-        return Task.CompletedTask;
     }
 
-    public Task HandleAsync(Co2ConcentrationChangedEvent data)
+    public async Task HandleAsync(Co2ConcentrationChangedEvent data)
     {
+        await this.repository.SaveAsync(new Co2ConcentrationMeasurementEntity(data.Co2Concentration, data.Timestamp));
         this.WriteToConsole(() =>
         {
             Console.Write($"{data.Timestamp.LocalDateTime}: CO2        : ");
@@ -62,7 +68,6 @@ internal class ReportingObserverService :
             Console.WriteLine($"{data.Co2Concentration}ppm");
             Console.ResetColor();
         });
-        return Task.CompletedTask;
     }
 
     private void WriteToConsole(Action action)

@@ -1,3 +1,5 @@
 namespace RaspiAir.Measurement;
 
-public record Co2ConcentrationChangedEvent(double Co2Concentration, DateTimeOffset Timestamp);
+using System;
+
+public record Co2ConcentrationChangedEvent(int Co2Concentration, DateTimeOffset Timestamp);
