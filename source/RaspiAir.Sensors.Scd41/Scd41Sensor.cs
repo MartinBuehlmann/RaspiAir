@@ -51,7 +51,7 @@ internal class Scd41Sensor : ISensor
             this.sensor.Subscribe(temperatureConsumer);
             this.sensor.Subscribe(humidityConsumer);
             this.sensor.Subscribe(concentrationConsumer);
-            this.sensor.StartUpdating(TimeSpan.FromSeconds(10));
+            this.sensor.StartUpdating(TimeSpan.FromSeconds(60));
         }
     }
 
