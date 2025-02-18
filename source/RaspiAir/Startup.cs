@@ -1,5 +1,6 @@
 ﻿namespace RaspiAir;
 
+using System.Linq;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using RaspiAir.Logging;
 using Serilog;
 
@@ -24,6 +26,14 @@ public class Startup
         services
             .AddControllers()
             .AddJsonOptions(o => { o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
+
+        services.AddSwaggerGen(c =>
+        {
+            c.EnableAnnotations();
+            c.CustomSchemaIds(type => type.ToString());
+            c.SwaggerDoc("web", new OpenApiInfo { Title = "RaspiAir.WEB" });
+            c.ResolveConflictingActions(x => x.First());
+        });
 
         services.Configure<ForwardedHeadersOptions>(options =>
         {
@@ -49,6 +59,18 @@ public class Startup
         app.UseSerilogRequestLogging();
 
         app.UseFileServer(new FileServerOptions { StaticFileOptions = { ServeUnknownFileTypes = true } });
+
+        app.UseSwagger(o =>
+        {
+            o.RouteTemplate = "swagger/{documentName}/swagger.json";
+            o.SerializeAsV2 = true;
+        });
+        app.UseSwaggerUI(c =>
+        {
+            c.SwaggerEndpoint("/swagger/web/swagger.json", "RaspiAir.WEB");
+            c.RoutePrefix = "swagger";
+            c.DisplayRequestDuration();
+        });
 
         app.UseStaticFiles();
         app.UseRouting();

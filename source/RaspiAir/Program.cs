@@ -1,9 +1,8 @@
-using DocumentStorage.FileBased;
-
 namespace RaspiAir;
 
 using System;
 using System.IO;
+using DocumentStorage.FileBased;
 using EventBroker;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -13,7 +12,11 @@ using RaspiAir.BackgroundServices;
 using RaspiAir.Common;
 using RaspiAir.Measurement.Services;
 using RaspiAir.Reporting.Services;
+#if DEBUG
+using RspiAir.Sensors.Demo;
+#else
 using RaspiAir.Sensors.Scd41;
+#endif
 using Serilog;
 
 public static class Program
@@ -58,9 +61,9 @@ public static class Program
                         .AddMeasurementServices()
                         .AddReportingServices()
 #if DEBUG
-                        .AddMeasurementScd41()
+                        .AddDemoSensor()
 #else
-                        .AddMeasurementScd41()
+                        .AddScd41Sensor()
 #endif
                         .AddHostedService<BackgroundServiceHost>());
     }

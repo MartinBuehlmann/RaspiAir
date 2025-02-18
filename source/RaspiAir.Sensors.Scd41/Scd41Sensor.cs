@@ -6,12 +6,12 @@ using Meadow.Hardware;
 using Meadow.Units;
 using RaspiAir.Common.Logging;
 
-internal class Sensor : ISensor
+internal class Scd41Sensor : ISensor
 {
     private readonly Log logger;
     private Meadow.Foundation.Sensors.Environmental.Scd41? sensor;
 
-    public Sensor(Log logger)
+    public Scd41Sensor(Log logger)
     {
         this.logger = logger;
     }
