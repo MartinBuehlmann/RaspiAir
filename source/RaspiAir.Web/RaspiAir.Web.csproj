@@ -13,5 +13,8 @@
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
       <PackageReference Include="Swashbuckle.AspNetCore.Annotations" />
     </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\RaspiAir.Reporting\RaspiAir.Reporting.csproj" />
+    </ItemGroup>
 
 </Project>

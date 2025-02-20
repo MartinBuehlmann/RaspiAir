@@ -77,7 +77,7 @@ internal class ReportingRepository : IReportingRepository
 
     public async Task<Humidity> RetrieveLatestHumidityAsync()
     {
-        var entity = await this.documentStorage.ReadAsync<HumidityMeasurementEntity>(LatestTemperatureFileName) ??
+        var entity = await this.documentStorage.ReadAsync<HumidityMeasurementEntity>(LatestHumidityFileName) ??
                      new HumidityMeasurementEntity();
         return new Humidity(entity.Humidity, entity.Timestamp);
     }
@@ -85,7 +85,7 @@ internal class ReportingRepository : IReportingRepository
     public async Task<Co2Concentration> RetrieveLatestCo2ConcentrationAsync()
     {
         var entity =
-            await this.documentStorage.ReadAsync<Co2ConcentrationMeasurementEntity>(LatestTemperatureFileName) ??
+            await this.documentStorage.ReadAsync<Co2ConcentrationMeasurementEntity>(LatestCo2ConcentrationFileName) ??
             new Co2ConcentrationMeasurementEntity();
         return new Co2Concentration(entity.Co2Concentration, entity.Timestamp);
     }
