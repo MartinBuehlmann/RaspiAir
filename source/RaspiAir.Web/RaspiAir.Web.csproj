@@ -15,6 +15,7 @@
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\RaspiAir.Reporting\RaspiAir.Reporting.csproj" />
+      <ProjectReference Include="..\RaspiAir.Web.Models\RaspiAir.Web.Models.csproj" />
     </ItemGroup>
 
 </Project>

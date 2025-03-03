@@ -9,4 +9,8 @@
       <PackageReference Include="MudBlazor" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\RaspiAir.Web.Models\RaspiAir.Web.Models.csproj" />
+    </ItemGroup>
+
 </Project>

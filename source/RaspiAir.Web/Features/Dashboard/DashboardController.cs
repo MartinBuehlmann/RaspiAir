@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RaspiAir.Reporting;
 using RaspiAir.Reporting.Domain;
+using RaspiAir.Web.Models.Features.Dashboard;
 
 public class DashboardController : WebController
 {

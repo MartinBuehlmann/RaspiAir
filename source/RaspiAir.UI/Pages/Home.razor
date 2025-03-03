@@ -4,4 +4,38 @@
 
 <h2>Air Quality</h2>
 
-<p>TODO: Display the current values and add a traffic light like visual component to indicate the overall state.</p>
+@if (model == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <MudCard>
+        <MudCardContent>
+            <MudText>Temperature</MudText>
+            <MudText>@model.Temperature</MudText>
+        </MudCardContent>
+    </MudCard>
+    
+    <p/>
+    
+    <MudCard>
+        <MudCardContent>
+            <MudText>Humidity</MudText>
+            <MudText>@model.Humidity</MudText>
+        </MudCardContent>
+    </MudCard>
+    
+    <p/>
+    
+    <MudCard>
+        <MudCardContent>
+            <MudText>CO2 Concentration</MudText>
+            <MudText>@model.Co2Concentration</MudText>
+        </MudCardContent>
+    </MudCard>
+    
+    <p/>
+    
+    <MudText>Last updated: @model.Timestamp</MudText>
+}
