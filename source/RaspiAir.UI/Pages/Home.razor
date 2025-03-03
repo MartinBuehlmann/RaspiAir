@@ -10,32 +10,33 @@
 }
 else
 {
-    <MudCard>
-        <MudCardContent>
-            <MudText>Temperature</MudText>
-            <MudText>@model.Temperature</MudText>
-        </MudCardContent>
-    </MudCard>
-    
-    <p/>
-    
-    <MudCard>
-        <MudCardContent>
-            <MudText>Humidity</MudText>
-            <MudText>@model.Humidity</MudText>
-        </MudCardContent>
-    </MudCard>
-    
-    <p/>
-    
-    <MudCard>
-        <MudCardContent>
-            <MudText>CO2 Concentration</MudText>
-            <MudText>@model.Co2Concentration</MudText>
-        </MudCardContent>
-    </MudCard>
-    
-    <p/>
-    
-    <MudText>Last updated: @model.Timestamp</MudText>
+    <MudGrid Spacing="4">
+        <MudItem>
+            <MudCard Width="10em">
+                <MudCardContent>
+                    <MudText>Temperature</MudText>
+                    <MudText>@model.Temperature.ToString("F1") &deg;C</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem>
+            <MudCard Width="10em">
+                <MudCardContent>
+                    <MudText>Humidity</MudText>
+                    <MudText>@model.Humidity.ToString("F1") %</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem>
+            <MudCard Width="10em">
+                <MudCardContent>
+                    <MudText>CO&#8322;</MudText>
+                    <MudText>@model.Co2Concentration ppm</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+    <MudText Typo="Typo.body2">Last updated: @model.Timestamp.LocalDateTime</MudText>
 }
