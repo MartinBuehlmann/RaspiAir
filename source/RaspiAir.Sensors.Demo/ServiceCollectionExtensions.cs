@@ -1,7 +1,6 @@
-﻿namespace RspiAir.Sensors.Demo;
+﻿namespace RaspiAir.Sensors.Demo;
 
 using Microsoft.Extensions.DependencyInjection;
-using RaspiAir.Sensors;
 
 public static class ServiceCollectionExtensions
 {

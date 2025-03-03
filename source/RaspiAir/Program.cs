@@ -12,8 +12,9 @@ using RaspiAir.BackgroundServices;
 using RaspiAir.Common;
 using RaspiAir.Measurement.Services;
 using RaspiAir.Reporting.Services;
+using RaspiAir.Sensors.Demo;
+
 #if DEBUG
-using RspiAir.Sensors.Demo;
 #else
 using RaspiAir.Sensors.Scd41;
 #endif

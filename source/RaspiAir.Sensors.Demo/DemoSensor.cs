@@ -1,8 +1,7 @@
-﻿namespace RspiAir.Sensors.Demo;
+﻿namespace RaspiAir.Sensors.Demo;
 
 using System;
 using System.Timers;
-using RaspiAir.Sensors;
 
 internal class DemoSensor : ISensor
 {

@@ -18,6 +18,6 @@
       <ProjectReference Include="..\RaspiAir.Reporting.Services\RaspiAir.Reporting.Services.csproj" />
       <ProjectReference Include="..\RaspiAir.Sensors.Scd41\RaspiAir.Sensors.Scd41.csproj" />
       <ProjectReference Include="..\RaspiAir.Web\RaspiAir.Web.csproj" />
-      <ProjectReference Include="..\RspiAir.Sensors.Demo\RspiAir.Sensors.Demo.csproj" />
+      <ProjectReference Include="..\RaspiAir.Sensors.Demo\RaspiAir.Sensors.Demo.csproj" />
     </ItemGroup>
 </Project>
