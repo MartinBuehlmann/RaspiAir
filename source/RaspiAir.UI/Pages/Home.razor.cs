@@ -38,10 +38,11 @@ public partial class Home : ComponentBase, IAsyncDisposable
                 .WithUrl(this.navigation.ToAbsoluteUri($"/{EventTopics.MeasurementReportUpdatedHub}"))
                 .Build();
 
-            this.hubConnection.Closed += async (error) =>
+            this.hubConnection.Closed += (error) =>
             {
                 Console.WriteLine("Connection closed");
                 Console.WriteLine(error);
+                return Task.CompletedTask;
             };
 
             this.hubConnection.On(EventTopics.MeasurementReportUpdated, this.OnMeasurementReportUpdatedAsync);
