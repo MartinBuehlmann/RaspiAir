@@ -1,6 +1,5 @@
 namespace RaspiAir.UI.Pages;
 
-using System;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -25,9 +24,6 @@ public partial class Home : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-#if DEBUG
-        this.model = new DashboardModel(20.5234, 38.312, 450, DateTimeOffset.UtcNow);
-#else
         await this.RefreshModelAsync();
 
         this.hubConnection = new HubConnectionBuilder()
@@ -37,7 +33,6 @@ public partial class Home : ComponentBase
         this.hubConnection.On(EventTopics.MeasurementReportUpdated, async () => { await this.RefreshModelAsync(); });
 
         await this.hubConnection.StartAsync();
-#endif
     }
 
     private async Task RefreshModelAsync()
