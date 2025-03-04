@@ -2,6 +2,7 @@
 
 using Microsoft.AspNetCore.Builder;
 using RaspiAir.Web.Features.Dashboard;
+using RaspiAir.Web.Shared.Events;
 
 public static class SignalRApplicationBuilderExtensions
 {
@@ -10,7 +11,7 @@ public static class SignalRApplicationBuilderExtensions
         app.UseResponseCompression();
         app.UseEndpoints(endpoints =>
         {
-            endpoints.MapHub<MeasurementReportUpdatedNotificationHub>($"/{nameof(MeasurementReportUpdatedNotificationHub)}");
+            endpoints.MapHub<MeasurementReportUpdatedHub>($"/{EventTopics.MeasurementReportUpdatedHub}");
         });
 
         return app;

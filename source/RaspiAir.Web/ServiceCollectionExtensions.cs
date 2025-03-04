@@ -8,7 +8,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddWebServices(this IServiceCollection serviceCollection)
     {
-        serviceCollection.AddTransient<MeasurementReportUpdatedNotificationHub>();
+        serviceCollection.AddTransient<MeasurementReportUpdatedHub>();
         serviceCollection.AddTransient<ILiveUpdateEventObserver, MeasurementReportUpdatedObserver>();
         return serviceCollection;
     }

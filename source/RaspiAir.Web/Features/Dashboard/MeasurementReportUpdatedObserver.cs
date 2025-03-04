@@ -7,15 +7,15 @@ using RaspiAir.Web.SignalR;
 
 internal class MeasurementReportUpdatedObserver : IEventSubscriptionAsync<MeasurementReportUpdatedEvent>, ILiveUpdateEventObserver
 {
-    private readonly MeasurementReportUpdatedNotificationHub notificationHub;
+    private readonly MeasurementReportUpdatedHub hub;
 
-    public MeasurementReportUpdatedObserver(MeasurementReportUpdatedNotificationHub notificationHub)
+    public MeasurementReportUpdatedObserver(MeasurementReportUpdatedHub hub)
     {
-        this.notificationHub = notificationHub;
+        this.hub = hub;
     }
 
     public async Task HandleAsync(MeasurementReportUpdatedEvent data)
     {
-        await this.notificationHub.NotifyAsync();
+        await this.hub.NotifyAsync();
     }
 }
