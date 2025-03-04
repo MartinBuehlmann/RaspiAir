@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using RaspiAir.Logging;
+using RaspiAir.Web.SignalR;
 using Serilog;
 
 public class Startup
@@ -40,6 +41,8 @@ public class Startup
             options.ForwardedHeaders =
                 ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
         });
+
+        services.AddSignalRServices();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -78,6 +81,7 @@ public class Startup
 
         app.UseMiddleware<RequestLoggingMiddleware>();
 
+        app.AddSignalRHubs();
         app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
     }
 }

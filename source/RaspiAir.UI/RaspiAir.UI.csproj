@@ -6,11 +6,12 @@
     <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
       <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" />
+      <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" />
       <PackageReference Include="MudBlazor" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\RaspiAir.Web.Models\RaspiAir.Web.Models.csproj" />
+      <ProjectReference Include="..\RaspiAir.Web.Shared\RaspiAir.Web.Shared.csproj" />
     </ItemGroup>
 
 </Project>

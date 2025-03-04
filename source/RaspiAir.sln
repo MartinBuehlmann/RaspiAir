@@ -54,7 +54,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Web", "RaspiAir.We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Sensors.Demo", "RaspiAir.Sensors.Demo\RaspiAir.Sensors.Demo.csproj", "{3DCD07BD-2777-4C7A-9E42-E8A3667321F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Web.Models", "RaspiAir.Web.Models\RaspiAir.Web.Models.csproj", "{75BE5534-D2B4-4E4C-B3AD-93F73096CD01}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Web.Shared", "RaspiAir.Web.Shared\RaspiAir.Web.Shared.csproj", "{75BE5534-D2B4-4E4C-B3AD-93F73096CD01}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

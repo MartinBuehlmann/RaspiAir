@@ -14,8 +14,10 @@
       <PackageReference Include="Swashbuckle.AspNetCore.Annotations" />
     </ItemGroup>
     <ItemGroup>
+      <ProjectReference Include="..\EventBroker\EventBroker.csproj" />
+      <ProjectReference Include="..\RaspiAir.Common\RaspiAir.Common.csproj" />
       <ProjectReference Include="..\RaspiAir.Reporting\RaspiAir.Reporting.csproj" />
-      <ProjectReference Include="..\RaspiAir.Web.Models\RaspiAir.Web.Models.csproj" />
+      <ProjectReference Include="..\RaspiAir.Web.Shared\RaspiAir.Web.Shared.csproj" />
     </ItemGroup>
 
 </Project>

@@ -13,6 +13,7 @@ using RaspiAir.Common;
 using RaspiAir.Measurement.Services;
 using RaspiAir.Reporting.Services;
 using RaspiAir.Sensors.Demo;
+using RaspiAir.Web;
 
 #if DEBUG
 #else
@@ -61,6 +62,7 @@ public static class Program
                         .AddFileBasedDocumentStorage()
                         .AddMeasurementServices()
                         .AddReportingServices()
+                        .AddWebServices()
 #if DEBUG
                         .AddDemoSensor()
 #else

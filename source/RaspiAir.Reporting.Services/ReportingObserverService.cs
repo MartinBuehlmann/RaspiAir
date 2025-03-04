@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventBroker;
 using RaspiAir.Measurement;
+using RaspiAir.Measurement.Events;
 using RaspiAir.Reporting.Services.Entities;
 using RaspiRobot.Lights.Common;
 

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RaspiAir.Reporting;
 using RaspiAir.Reporting.Domain;
-using RaspiAir.Web.Models.Features.Dashboard;
+using RaspiAir.Web.Shared.Features.Dashboard;
 
 public class DashboardController : WebController
 {
@@ -17,12 +17,12 @@ public class DashboardController : WebController
     }
 
     [HttpGet]
-    public async Task<DashboardInfo> RetrieveDashboardAsync()
+    public async Task<DashboardModel> RetrieveDashboardAsync()
     {
         Temperature temperature = await this.reportingRepository.RetrieveLatestTemperatureAsync();
         Humidity humidity = await this.reportingRepository.RetrieveLatestHumidityAsync();
         Co2Concentration co2Concentration = await this.reportingRepository.RetrieveLatestCo2ConcentrationAsync();
-        return new DashboardInfo(
+        return new DashboardModel(
             temperature.Value,
             humidity.Value,
             co2Concentration.Value,

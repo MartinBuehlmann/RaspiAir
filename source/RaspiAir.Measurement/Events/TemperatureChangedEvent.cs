@@ -1,4 +1,4 @@
-namespace RaspiAir.Measurement;
+namespace RaspiAir.Measurement.Events;
 
 using System;
 

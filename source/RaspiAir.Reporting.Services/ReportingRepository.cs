@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DocumentStorage;
+using EventBroker;
 using RaspiAir.Reporting.Domain;
+using RaspiAir.Reporting.Events;
 using RaspiAir.Reporting.Services.Entities;
 
 internal class ReportingRepository : IReportingRepository
@@ -17,10 +19,14 @@ internal class ReportingRepository : IReportingRepository
     private const string HumidityFilePrefix = "Humidity";
     private const string Co2ConcentrationFilePrefix = "Co2Concentration";
     private readonly IDocumentStorage documentStorage;
+    private readonly IEventBroker eventBroker;
 
-    public ReportingRepository(IDocumentStorage documentStorage)
+    public ReportingRepository(
+        IDocumentStorage documentStorage,
+        IEventBroker eventBroker)
     {
         this.documentStorage = documentStorage;
+        this.eventBroker = eventBroker;
     }
 
     public async Task SaveAsync(TemperatureMeasurementEntity entity)
@@ -36,6 +42,8 @@ internal class ReportingRepository : IReportingRepository
         await this.documentStorage.UpdateAsync<MeasurementEntityCollection<TemperatureMeasurementEntity>>(
             DailyMeasurementFileNameBuilder.Build(TemperatureFilePrefix, entity.Timestamp),
             x => x.Items.Add(entity));
+
+        this.eventBroker.Publish(new MeasurementReportUpdatedEvent());
     }
 
     public async Task SaveAsync(HumidityMeasurementEntity entity)
@@ -51,6 +59,8 @@ internal class ReportingRepository : IReportingRepository
         await this.documentStorage.UpdateAsync<MeasurementEntityCollection<HumidityMeasurementEntity>>(
             DailyMeasurementFileNameBuilder.Build(HumidityFilePrefix, entity.Timestamp),
             x => x.Items.Add(entity));
+
+        this.eventBroker.Publish(new MeasurementReportUpdatedEvent());
     }
 
     public async Task SaveAsync(Co2ConcentrationMeasurementEntity entity)
@@ -66,6 +76,8 @@ internal class ReportingRepository : IReportingRepository
         await this.documentStorage.UpdateAsync<MeasurementEntityCollection<Co2ConcentrationMeasurementEntity>>(
             DailyMeasurementFileNameBuilder.Build(Co2ConcentrationFilePrefix, entity.Timestamp),
             x => x.Items.Add(entity));
+
+        this.eventBroker.Publish(new MeasurementReportUpdatedEvent());
     }
 
     public async Task<Temperature> RetrieveLatestTemperatureAsync()
