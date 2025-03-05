@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\RaspiAir.Common\RaspiAir.Common.csproj" />
+      <ProjectReference Include="..\RaspiAir.Sensors\RaspiAir.Sensors.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Meadow.Foundation.Sensors.Environmental.Scd4x" />
+      <PackageReference Include="Meadow.Linux" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    </ItemGroup>
+
+</Project>

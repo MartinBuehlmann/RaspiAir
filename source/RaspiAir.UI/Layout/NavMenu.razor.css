@@ -1,0 +1,18 @@
+#links {
+    flex-grow: 1;
+    display: flex;
+    gap: 20px;
+    justify-content: left;
+    font-variant: small-caps;
+
+    .link {
+        padding-bottom: 5px;
+        cursor: pointer;
+        &:hover {
+            color: silver;
+        }
+        &.active {
+            font-weight: bold;
+        }
+    }
+}

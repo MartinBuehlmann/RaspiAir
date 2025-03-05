@@ -5,7 +5,8 @@ set key_file="C:\temp\Raspberry\ssh_keys\id_rsa"
 
 rd ..\artifacts\Windows /s /q
 call DeployLocalLinux.bat "RaspiAir"
-REM ssh -i %key_file% pi@%raspi_air_name% "sudo systemctl stop RaspiAir"
+call DeployLocalLinux.bat "RaspiAir.UI"
+ssh -i %key_file% pi@%raspi_air_name% "sudo systemctl stop RaspiAir"
 scp -i %key_file% -r ..\artifacts\Linux\. pi@%raspi_air_name%:/home/pi/RaspiAir/bin
-REM ssh -i %key_file% pi@%raspi_air_name% "sudo systemctl start RaspiAir"
+ssh -i %key_file% pi@%raspi_air_name% "sudo systemctl start RaspiAir"
 pause

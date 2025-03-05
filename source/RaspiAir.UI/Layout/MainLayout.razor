@@ -1,0 +1,53 @@
+﻿@inherits LayoutComponentBase
+
+@* Required *@
+<MudThemeProvider Theme="raspiRobotTheme" @bind-IsDarkMode="@isDarkMode"/>
+<MudPopoverProvider />
+
+@* Needed for dialogs *@
+<MudDialogProvider />
+
+@* Needed for snackbars *@
+<MudSnackbarProvider />
+
+<div class="page">
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo" class="logo-image"/>
+            <span class="logo-text">RaspiAir</span>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="sidebar">
+            <NavMenu/>
+        </div>
+
+        <main class="content">
+            <div class="contentcontainer">
+                @Body
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <div class="footer">
+            <p>Check out source at <a href="https://github.com/MartinBuehlmann/RaspiAir" target="_blank">GitHub.com</a>
+            </p>
+        </div>
+    </footer>
+</div>
+
+@code {
+
+    private bool isDarkMode = true;
+    
+    private MudTheme raspiRobotTheme = new()
+    {
+        PaletteDark = new PaletteDark()
+        {
+            Primary = Colors.Gray.Lighten1
+        },
+    };
+
+}
