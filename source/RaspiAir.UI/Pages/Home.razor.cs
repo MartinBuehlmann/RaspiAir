@@ -32,22 +32,25 @@ public partial class Home : ComponentBase, IAsyncDisposable
 
     protected override async Task OnInitializedAsync()
     {
-            await this.RefreshModelAsync();
+        await this.RefreshModelAsync();
 
-            this.hubConnection = new HubConnectionBuilder()
-                .WithUrl(this.navigation.ToAbsoluteUri($"/{EventTopics.MeasurementReportUpdatedHub}"))
-                .Build();
+        this.hubConnection = new HubConnectionBuilder()
+            .WithUrl(this.navigation.ToAbsoluteUri($"/{EventTopics.MeasurementReportUpdatedHub}"))
+            .WithAutomaticReconnect()
+            .Build();
 
-            this.hubConnection.Closed += (error) =>
-            {
-                Console.WriteLine("Connection closed");
-                Console.WriteLine(error);
-                return Task.CompletedTask;
-            };
+        this.hubConnection.Closed += (error) =>
+        {
+            Console.WriteLine("Connection closed");
+            Console.WriteLine(error);
+            return Task.CompletedTask;
+        };
 
-            this.hubConnection.On(EventTopics.MeasurementReportUpdated, this.OnMeasurementReportUpdatedAsync);
+        this.hubConnection.On(
+            EventTopics.MeasurementReportUpdated,
+            async () => await this.OnMeasurementReportUpdatedAsync());
 
-            await this.hubConnection.StartAsync();
+        await this.hubConnection.StartAsync();
     }
 
     private async Task OnMeasurementReportUpdatedAsync()
@@ -59,5 +62,6 @@ public partial class Home : ComponentBase, IAsyncDisposable
     private async Task RefreshModelAsync()
     {
         this.model = await this.HttpClient.GetFromJsonAsync<DashboardModel>("web/Dashboard");
+        await this.InvokeAsync(this.StateHasChanged);
     }
 }
