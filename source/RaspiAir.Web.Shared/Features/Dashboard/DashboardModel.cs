@@ -2,4 +2,4 @@ namespace RaspiAir.Web.Shared.Features.Dashboard;
 
 using System;
 
-public record DashboardModel(double Temperature, double Humidity, int Co2Concentration, DateTimeOffset Timestamp);
+public record DashboardModel(TemperatureModel Temperature, HumidityModel Humidity, Co2ConcentrationModel Co2Concentration, DateTimeOffset Timestamp);

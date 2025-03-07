@@ -23,9 +23,9 @@ public class DashboardController : WebController
         Humidity humidity = await this.reportingRepository.RetrieveLatestHumidityAsync();
         Co2Concentration co2Concentration = await this.reportingRepository.RetrieveLatestCo2ConcentrationAsync();
         return new DashboardModel(
-            temperature.Value,
-            humidity.Value,
-            co2Concentration.Value,
+            new TemperatureModel(temperature.Value),
+            new HumidityModel(humidity.Value),
+            new Co2ConcentrationModel(co2Concentration.Value),
             new[] { temperature.Timestamp, humidity.Timestamp, co2Concentration.Timestamp }.Max());
     }
 }

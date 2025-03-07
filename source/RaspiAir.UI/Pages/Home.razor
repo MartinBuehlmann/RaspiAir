@@ -12,28 +12,31 @@ else
 {
     <MudGrid Spacing="4">
         <MudItem>
-            <MudCard Width="13em" Class="border-solid border-2 mud-border-primary pa-2">
+            <MudCard width="13em" Class="border-solid border-2 mud-border-primary pa-2"
+                     Style="@GetBorderColor2(model.Temperature.Rating)">
                 <MudCardContent>
                     <MudText>Temperature</MudText>
-                    <MudText Typo="Typo.h5">@model.Temperature.ToString("F1") &deg;C</MudText>
+                    <MudText Typo="Typo.h5">@model.Temperature.Value.ToString("F1") &deg;C</MudText>
                 </MudCardContent>
             </MudCard>
         </MudItem>
 
         <MudItem>
-            <MudCard Width="13em" Class="border-solid border-2 mud-border-primary pa-2">
+            <MudCard width="13em" Class="border-solid border-2 mud-border-primary pa-2"
+                     Style="@GetBorderColor2(model.Humidity.Rating)">
                 <MudCardContent>
                     <MudText>Humidity</MudText>
-                    <MudText Typo="Typo.h5">@model.Humidity.ToString("F1") %</MudText>
+                    <MudText Typo="Typo.h5">@model.Humidity.Value.ToString("F1") %</MudText>
                 </MudCardContent>
             </MudCard>
         </MudItem>
 
         <MudItem>
-            <MudCard Width="13em" Class="border-solid border-2 mud-border-primary pa-2">
+            <MudCard width="13em" Class="border-solid border-2 mud-border-primary pa-2"
+                     Style="@GetBorderColor2(model.Co2Concentration.Rating)">
                 <MudCardContent>
                     <MudText>CO&#8322;</MudText>
-                    <MudText Typo="Typo.h5">@model.Co2Concentration ppm</MudText>
+                    <MudText Typo="Typo.h5">@model.Co2Concentration.Value ppm</MudText>
                 </MudCardContent>
             </MudCard>
         </MudItem>

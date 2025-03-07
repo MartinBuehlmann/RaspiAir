@@ -1,6 +1,7 @@
 namespace RaspiAir.UI.Pages;
 
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -11,6 +12,15 @@ using RaspiAir.Web.Shared.Features.Dashboard;
 
 public partial class Home : ComponentBase, IAsyncDisposable
 {
+    private readonly Dictionary<ValueRating, string> valueRatings = new()
+    {
+        { ValueRating.VeryBad, "#FF0000" },
+        { ValueRating.Bad, "#ff9933" },
+        { ValueRating.NotSoGood, "#ffcc00" },
+        { ValueRating.Good, "#33cc33" },
+        { ValueRating.Perfect, "#009933" },
+    };
+
     private readonly NavigationManager navigation;
     private DashboardModel? model;
     private HubConnection? hubConnection;
@@ -21,6 +31,12 @@ public partial class Home : ComponentBase, IAsyncDisposable
     }
 
     [Inject] private HttpClient HttpClient { get; set; } = null!;
+
+    public string GetBorderColor(ValueRating valueRating)
+        => this.valueRatings[valueRating];
+
+    public string GetBorderColor2(ValueRating valueRating)
+        => $"border-color: {this.valueRatings[valueRating]};";
 
     public async ValueTask DisposeAsync()
     {
@@ -61,7 +77,8 @@ public partial class Home : ComponentBase, IAsyncDisposable
 
     private async Task RefreshModelAsync()
     {
-        this.model = await this.HttpClient.GetFromJsonAsync<DashboardModel>("web/Dashboard");
+        this.model = new DashboardModel(new TemperatureModel(20), new HumidityModel(45), new Co2ConcentrationModel(400), DateTimeOffset.UtcNow);
+        //this.model = await this.HttpClient.GetFromJsonAsync<DashboardModel>("web/Dashboard");
         await this.InvokeAsync(this.StateHasChanged);
     }
 }
