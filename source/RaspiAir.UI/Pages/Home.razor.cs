@@ -30,13 +30,8 @@ public partial class Home : ComponentBase, IAsyncDisposable
         this.navigation = navigation;
     }
 
-    [Inject] private HttpClient HttpClient { get; set; } = null!;
-
-    public string GetBorderColor(ValueRating valueRating)
-        => this.valueRatings[valueRating];
-
-    public string GetBorderColor2(ValueRating valueRating)
-        => $"border-color: {this.valueRatings[valueRating]};";
+    [Inject]
+    private HttpClient HttpClient { get; set; } = null!;
 
     public async ValueTask DisposeAsync()
     {
@@ -69,6 +64,9 @@ public partial class Home : ComponentBase, IAsyncDisposable
         await this.hubConnection.StartAsync();
     }
 
+    private string GetBorderColor(ValueRating valueRating)
+        => $"border-color: {this.valueRatings[valueRating]};";
+
     private async Task OnMeasurementReportUpdatedAsync()
     {
         Console.WriteLine("Measurement report updated");
@@ -77,8 +75,7 @@ public partial class Home : ComponentBase, IAsyncDisposable
 
     private async Task RefreshModelAsync()
     {
-        this.model = new DashboardModel(new TemperatureModel(20), new HumidityModel(45), new Co2ConcentrationModel(400), DateTimeOffset.UtcNow);
-        //this.model = await this.HttpClient.GetFromJsonAsync<DashboardModel>("web/Dashboard");
+        this.model = await this.HttpClient.GetFromJsonAsync<DashboardModel>("web/Dashboard");
         await this.InvokeAsync(this.StateHasChanged);
     }
 }
