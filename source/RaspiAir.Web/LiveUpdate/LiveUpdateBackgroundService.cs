@@ -1,4 +1,4 @@
-﻿namespace RaspiAir.Web.SignalR;
+﻿namespace RaspiAir.Web.LiveUpdate;
 
 using System.Collections.Generic;
 using System.Linq;

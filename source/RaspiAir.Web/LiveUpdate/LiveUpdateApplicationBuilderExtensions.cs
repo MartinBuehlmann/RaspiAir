@@ -1,17 +1,16 @@
-﻿namespace RaspiAir.Web.SignalR;
+﻿namespace RaspiAir.Web.LiveUpdate;
 
 using Microsoft.AspNetCore.Builder;
-using RaspiAir.Web.Features.Dashboard;
 using RaspiAir.Web.Shared.Events;
 
-public static class SignalRApplicationBuilderExtensions
+public static class LiveUpdateApplicationBuilderExtensions
 {
     public static IApplicationBuilder AddSignalRHubs(this IApplicationBuilder app)
     {
         app.UseResponseCompression();
         app.UseEndpoints(endpoints =>
         {
-            endpoints.MapHub<MeasurementReportUpdatedHub>($"/{EventTopics.MeasurementReportUpdatedHub}");
+            endpoints.MapHub<LiveUpdateHub>($"/{EventTopics.MeasurementReportUpdatedHub}");
         });
 
         return app;

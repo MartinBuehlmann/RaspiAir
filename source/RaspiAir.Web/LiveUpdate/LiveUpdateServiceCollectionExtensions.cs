@@ -1,4 +1,4 @@
-﻿namespace RaspiAir.Web.SignalR;
+﻿namespace RaspiAir.Web.LiveUpdate;
 
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 using RaspiRobot.Lights.Common;
 
-public static class SignalRServiceCollectionExtensions
+public static class LiveUpdateServiceCollectionExtensions
 {
     public static IServiceCollection AddSignalRServices(this IServiceCollection serviceCollection)
     {

@@ -1,3 +1,5 @@
+using RaspiAir.Web.LiveUpdate;
+
 namespace RaspiAir.Web.Features.Dashboard;
 
 using System.Threading.Tasks;
@@ -5,13 +7,12 @@ using EventBroker;
 using Microsoft.AspNetCore.SignalR;
 using RaspiAir.Reporting.Events;
 using RaspiAir.Web.Shared.Events;
-using RaspiAir.Web.SignalR;
 
 internal class MeasurementReportUpdatedObserver : IEventSubscriptionAsync<MeasurementReportUpdatedEvent>, ILiveUpdateEventObserver
 {
-    private readonly IHubContext<MeasurementReportUpdatedHub> hub;
+    private readonly IHubContext<LiveUpdateHub> hub;
 
-    public MeasurementReportUpdatedObserver(IHubContext<MeasurementReportUpdatedHub> hub)
+    public MeasurementReportUpdatedObserver(IHubContext<LiveUpdateHub> hub)
     {
         this.hub = hub;
     }
