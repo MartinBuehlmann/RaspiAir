@@ -1,14 +1,15 @@
-using RaspiAir.Web.LiveUpdate;
-
 namespace RaspiAir.Web.Features.Dashboard;
 
 using System.Threading.Tasks;
 using EventBroker;
 using Microsoft.AspNetCore.SignalR;
 using RaspiAir.Reporting.Events;
+using RaspiAir.Web.LiveUpdate;
 using RaspiAir.Web.Shared.Events;
 
-internal class MeasurementReportUpdatedObserver : IEventSubscriptionAsync<MeasurementReportUpdatedEvent>, ILiveUpdateEventObserver
+internal class MeasurementReportUpdatedObserver :
+    IEventSubscriptionAsync<MeasurementReportUpdatedEvent>,
+    ILiveUpdateEventObserver
 {
     private readonly IHubContext<LiveUpdateHub> hub;
 
