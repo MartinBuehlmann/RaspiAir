@@ -3,4 +3,8 @@
     <PropertyGroup>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\RaspiAir.Reporting\RaspiAir.Reporting.csproj" />
+    </ItemGroup>
+
 </Project>

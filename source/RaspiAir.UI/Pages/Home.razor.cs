@@ -7,6 +7,7 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
+using RaspiAir.Reporting.Domain;
 using RaspiAir.Web.Shared.Events;
 using RaspiAir.Web.Shared.Features.Dashboard;
 
@@ -69,12 +70,12 @@ public partial class Home : ComponentBase, IAsyncDisposable
 
     private async Task OnMeasurementReportUpdatedAsync()
     {
-        Console.WriteLine("Measurement report updated");
         await this.RefreshModelAsync();
     }
 
     private async Task RefreshModelAsync()
     {
+        //this.model = new DashboardModel(new TemperatureModel(20, ValueRating.Perfect), new HumidityModel(45, ValueRating.Good), new Co2ConcentrationModel(1400, ValueRating.NotSoGood), DateTimeOffset.UtcNow);
         this.model = await this.HttpClient.GetFromJsonAsync<DashboardModel>("web/Dashboard");
         await this.InvokeAsync(this.StateHasChanged);
     }

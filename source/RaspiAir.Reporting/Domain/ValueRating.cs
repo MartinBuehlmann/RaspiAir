@@ -1,4 +1,4 @@
-﻿namespace RaspiAir.Web.Shared.Features.Dashboard;
+﻿namespace RaspiAir.Reporting.Domain;
 
 public enum ValueRating
 {

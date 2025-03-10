@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿namespace RaspiAir.Web.LiveUpdate;
 
-namespace RaspiAir.Web.LiveUpdate;
+using Microsoft.AspNetCore.SignalR;
 
 public class LiveUpdateHub : Hub
 {

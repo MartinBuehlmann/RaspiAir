@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RaspiAir.BackgroundServices;
+using RaspiAir.Co2TrafficLight;
 using RaspiAir.Common;
 using RaspiAir.Measurement.Services;
 using RaspiAir.Reporting.Services;
@@ -63,6 +64,7 @@ public static class Program
                         .AddMeasurementServices()
                         .AddReportingServices()
                         .AddWebServices()
+                        .AddCo2TrafficLightServices()
 #if DEBUG
                         .AddDemoSensor()
 #else
