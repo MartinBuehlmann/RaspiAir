@@ -2,6 +2,7 @@ namespace RaspiAir;
 
 using System;
 using System.IO;
+using Common;
 using DocumentStorage.FileBased;
 using EventBroker;
 using Microsoft.AspNetCore.Hosting;
@@ -10,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RaspiAir.BackgroundServices;
 using RaspiAir.Co2TrafficLight;
-using RaspiAir.Common;
 using RaspiAir.Measurement.Services;
 using RaspiAir.Reporting.Services;
 using RaspiAir.Sensors.Demo;
@@ -58,7 +58,7 @@ public static class Program
             .ConfigureServices(
                 (_, services)
                     => services
-                        .AddRaspiAirCommon()
+                        .AddCommon()
                         .AddEventBroker()
                         .AddFileBasedDocumentStorage()
                         .AddMeasurementServices()

@@ -1,4 +1,4 @@
-﻿namespace LedStripeControl;
+﻿namespace LedStripe.Device;
 
 using System;
 using System.Drawing;

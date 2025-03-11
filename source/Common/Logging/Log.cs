@@ -1,5 +1,6 @@
-﻿namespace RaspiAir.Common.Logging;
+﻿namespace Common.Logging;
 
+using System;
 using Serilog;
 using Serilog.Core;
 

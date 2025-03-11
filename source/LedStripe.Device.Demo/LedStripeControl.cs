@@ -1,4 +1,4 @@
-﻿namespace LedStripeControl.Demo;
+﻿namespace LedStripe.Device.Demo;
 
 using System;
 using System.Collections.Generic;

@@ -1,10 +1,10 @@
 ﻿namespace RaspiAir.Web.LiveUpdate;
 
 using System.Linq;
+using Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
-using RaspiRobot.Lights.Common;
 
 public static class LiveUpdateServiceCollectionExtensions
 {

@@ -15,7 +15,7 @@
       <ProjectReference Include="..\DocumentStorage.FileBased\DocumentStorage.FileBased.csproj" />
       <ProjectReference Include="..\RaspiAir.Co2TrafficLight\RaspiAir.Co2TrafficLight.csproj" />
       <ProjectReference Include="..\RaspiAir.Measurement.Services\RaspiAir.Measurement.Services.csproj" />
-      <ProjectReference Include="..\RaspiAir.Common\RaspiAir.Common.csproj" />
+      <ProjectReference Include="..\Common\Common.csproj" />
       <ProjectReference Include="..\RaspiAir.Reporting.Services\RaspiAir.Reporting.Services.csproj" />
       <ProjectReference Include="..\RaspiAir.Sensors.Scd41\RaspiAir.Sensors.Scd41.csproj" />
       <ProjectReference Include="..\RaspiAir.Web\RaspiAir.Web.csproj" />

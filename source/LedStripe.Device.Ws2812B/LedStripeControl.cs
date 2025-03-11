@@ -1,4 +1,4 @@
-﻿namespace LedStripeControl.Ws2812B;
+﻿namespace LedStripe.Device.Ws2812B;
 
 using System.Collections.Generic;
 using System.Device.Spi;

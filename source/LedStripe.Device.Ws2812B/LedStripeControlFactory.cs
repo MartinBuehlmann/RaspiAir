@@ -1,4 +1,4 @@
-﻿namespace LedStripeControl.Demo;
+﻿namespace LedStripe.Device.Ws2812B;
 
 public class LedStripeControlFactory : ILedStripeControlFactory
 {

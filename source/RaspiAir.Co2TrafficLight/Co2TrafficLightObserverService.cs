@@ -2,11 +2,11 @@
 
 using System.Threading;
 using System.Threading.Tasks;
+using Common;
 using EventBroker;
 using RaspiAir.Reporting;
 using RaspiAir.Reporting.Domain;
 using RaspiAir.Reporting.Events;
-using RaspiRobot.Lights.Common;
 
 internal class Co2TrafficLightObserverService :
     IBackgroundService,

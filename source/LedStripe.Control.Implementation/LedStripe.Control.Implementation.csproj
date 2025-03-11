@@ -4,13 +4,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\DocumentStorage\DocumentStorage.csproj" />
+      <ProjectReference Include="..\LedStripe.Control\LedStripe.Control.csproj" />
       <ProjectReference Include="..\Common\Common.csproj" />
-      <ProjectReference Include="..\RaspiAir.Sensors\RaspiAir.Sensors.csproj" />
+      <ProjectReference Include="..\LedStripe.Device\LedStripe.Device.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Meadow.Foundation.Sensors.Environmental.Scd4x" />
-      <PackageReference Include="Meadow.Linux" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
     </ItemGroup>
 

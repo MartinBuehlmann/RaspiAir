@@ -4,12 +4,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Iot.Device.Bindings" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\LedStripeControl\LedStripeControl.csproj" />
+      <PackageReference Include="Serilog" />
     </ItemGroup>
 
 </Project>

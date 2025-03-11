@@ -1,4 +1,4 @@
-﻿namespace LedStripeControl;
+﻿namespace LedStripe.Device;
 
 public interface ILedStripeControlFactory
 {
