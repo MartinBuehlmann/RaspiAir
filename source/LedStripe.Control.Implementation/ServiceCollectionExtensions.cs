@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddLedsStripe(this IServiceCollection serviceCollection)
+    public static IServiceCollection AddLedStripe(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddTransient<IBackgroundService, LedService>();
         serviceCollection.AddSingleton<ILedController, LedController>();
