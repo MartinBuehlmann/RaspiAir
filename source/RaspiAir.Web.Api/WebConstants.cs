@@ -1,4 +1,4 @@
-namespace RaspiAir.Web;
+namespace RaspiAir.Web.Api;
 
 internal static class WebConstants
 {

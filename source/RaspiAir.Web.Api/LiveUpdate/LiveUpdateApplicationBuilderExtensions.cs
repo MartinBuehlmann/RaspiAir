@@ -1,4 +1,4 @@
-﻿namespace RaspiAir.Web.LiveUpdate;
+﻿namespace RaspiAir.Web.Api.LiveUpdate;
 
 using Microsoft.AspNetCore.Builder;
 using RaspiAir.Web.Shared.Events;

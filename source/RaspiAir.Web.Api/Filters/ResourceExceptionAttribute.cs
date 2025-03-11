@@ -1,4 +1,4 @@
-﻿namespace RaspiAir.Web.Filters;
+﻿namespace RaspiAir.Web.Api.Filters;
 
 using System;
 using Microsoft.AspNetCore.Mvc;

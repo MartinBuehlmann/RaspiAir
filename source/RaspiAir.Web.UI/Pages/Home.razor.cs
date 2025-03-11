@@ -1,4 +1,4 @@
-namespace RaspiAir.UI.Pages;
+namespace RaspiAir.Web.UI.Pages;
 
 using System;
 using System.Collections.Generic;

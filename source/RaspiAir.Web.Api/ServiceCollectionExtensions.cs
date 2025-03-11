@@ -1,8 +1,8 @@
-﻿namespace RaspiAir.Web;
+﻿namespace RaspiAir.Web.Api;
 
 using Microsoft.Extensions.DependencyInjection;
-using RaspiAir.Web.Features.Dashboard;
-using RaspiAir.Web.LiveUpdate;
+using RaspiAir.Web.Api.Features.Dashboard;
+using RaspiAir.Web.Api.LiveUpdate;
 
 public static class ServiceCollectionExtensions
 {

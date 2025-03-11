@@ -1,4 +1,4 @@
-﻿namespace RaspiAir.Web.Features.Dashboard;
+﻿namespace RaspiAir.Web.Api.Features.Dashboard;
 
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,9 +23,9 @@ public class DashboardController : WebController
         Humidity humidity = await this.reportingRepository.RetrieveLatestHumidityAsync();
         Co2Concentration co2Concentration = await this.reportingRepository.RetrieveLatestCo2ConcentrationAsync();
         return new DashboardModel(
-            new TemperatureModel(temperature.Value, temperature.Rating),
-            new HumidityModel(humidity.Value, humidity.Rating),
-            new Co2ConcentrationModel(co2Concentration.Value, co2Concentration.Rating),
+            new TemperatureModel { Value = temperature.Value, Rating = temperature.Rating },
+            new HumidityModel { Value = humidity.Value, Rating = humidity.Rating },
+            new Co2ConcentrationModel { Value = co2Concentration.Value, Rating = co2Concentration.Rating },
             new[] { temperature.Timestamp, humidity.Timestamp, co2Concentration.Timestamp }.Max());
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace RaspiAir.Web.LiveUpdate;
+﻿namespace RaspiAir.Web.Api.LiveUpdate;
 
 using System.Collections.Generic;
 using System.Linq;

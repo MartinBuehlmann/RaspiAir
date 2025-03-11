@@ -37,7 +37,7 @@ internal static class DirectoryProvider
         while (true)
         {
             string[] directories = Directory.GetDirectories(directory);
-            string? webDir = directories.SingleOrDefault(x => x.EndsWith("RaspiAir.Web", StringComparison.InvariantCulture));
+            string? webDir = directories.SingleOrDefault(x => x.EndsWith("RaspiAir.Web.Api", StringComparison.InvariantCulture));
             if (!string.IsNullOrEmpty(webDir))
             {
                 return webDir;

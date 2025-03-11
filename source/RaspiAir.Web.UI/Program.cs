@@ -1,4 +1,4 @@
-namespace RaspiAir.UI;
+namespace RaspiAir.Web.UI;
 
 using System;
 using System.Net.Http;

@@ -1,7 +1,6 @@
-﻿using Common;
+﻿namespace RaspiAir.Measurement.Services;
 
-namespace RaspiAir.Measurement.Services;
-
+using Common;
 using Microsoft.Extensions.DependencyInjection;
 
 public static class ServiceCollectionExtensions

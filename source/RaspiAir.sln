@@ -48,9 +48,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Reporting", "Raspi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interfaces", "Interfaces", "{0743ED10-C1C4-4792-BB06-7CFFB2E00F47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.UI", "RaspiAir.UI\RaspiAir.UI.csproj", "{D6CA02F4-AD42-429F-B79A-57CF2B04603D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Web.UI", "RaspiAir.Web.UI\RaspiAir.Web.UI.csproj", "{D6CA02F4-AD42-429F-B79A-57CF2B04603D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Web", "RaspiAir.Web\RaspiAir.Web.csproj", "{6ABF6FC1-0712-42F1-9104-ADCC5728008A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Web.Api", "RaspiAir.Web.Api\RaspiAir.Web.Api.csproj", "{6ABF6FC1-0712-42F1-9104-ADCC5728008A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Sensors.Demo", "RaspiAir.Sensors.Demo\RaspiAir.Sensors.Demo.csproj", "{3DCD07BD-2777-4C7A-9E42-E8A3667321F9}"
 EndProject

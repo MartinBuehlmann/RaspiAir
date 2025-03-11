@@ -6,5 +6,5 @@ public enum ValueRating
     Good,
     NotSoGood,
     Bad,
-    VeryBad
+    VeryBad,
 }
