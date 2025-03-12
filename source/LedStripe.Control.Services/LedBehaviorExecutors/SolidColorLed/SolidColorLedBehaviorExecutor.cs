@@ -1,4 +1,4 @@
-﻿namespace LedStripe.Control.Implementation.LedBehaviorExecutors.SolidColorLed;
+﻿namespace LedStripe.Control.Services.LedBehaviorExecutors.SolidColorLed;
 
 using System.Drawing;
 using LedStripe.Control.LedBehaviors;

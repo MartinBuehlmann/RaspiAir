@@ -1,4 +1,4 @@
-﻿namespace LedStripe.Control.Implementation.LedBehaviorExecutors.OffLed;
+﻿namespace LedStripe.Control.Services.LedBehaviorExecutors.OffLed;
 
 using System.Drawing;
 using LedStripe.Control.LedBehaviors;

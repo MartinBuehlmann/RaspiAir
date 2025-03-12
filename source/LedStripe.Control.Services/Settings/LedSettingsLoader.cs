@@ -1,4 +1,4 @@
-﻿namespace LedStripe.Control.Implementation.Settings;
+﻿namespace LedStripe.Control.Services.Settings;
 
 using System.Threading.Tasks;
 using DocumentStorage;

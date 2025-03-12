@@ -1,11 +1,11 @@
-﻿namespace LedStripe.Control.Implementation.LedBehaviorExecutors;
+﻿namespace LedStripe.Control.Services.LedBehaviorExecutors;
 
 using System;
-using LedStripe.Control.Implementation.LedBehaviorExecutors.BlingkingColorLed;
-using LedStripe.Control.Implementation.LedBehaviorExecutors.FadingColorLed;
-using LedStripe.Control.Implementation.LedBehaviorExecutors.OffLed;
-using LedStripe.Control.Implementation.LedBehaviorExecutors.SolidColorLed;
 using LedStripe.Control.LedBehaviors;
+using LedStripe.Control.Services.LedBehaviorExecutors.BlingkingColorLed;
+using LedStripe.Control.Services.LedBehaviorExecutors.FadingColorLed;
+using LedStripe.Control.Services.LedBehaviorExecutors.OffLed;
+using LedStripe.Control.Services.LedBehaviorExecutors.SolidColorLed;
 
 internal class LedBehaviorExecutorFactory
 {

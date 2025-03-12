@@ -1,4 +1,4 @@
-﻿namespace LedStripe.Control.Implementation;
+﻿namespace LedStripe.Control.Services;
 
 using System;
 using System.Threading;

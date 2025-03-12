@@ -1,8 +1,8 @@
-﻿namespace LedStripe.Control.Implementation;
+﻿namespace LedStripe.Control.Services;
 
 using Common;
-using LedStripe.Control.Implementation.LedBehaviorExecutors;
-using LedStripe.Control.Implementation.Settings;
+using LedStripe.Control.Services.LedBehaviorExecutors;
+using LedStripe.Control.Services.Settings;
 using Microsoft.Extensions.DependencyInjection;
 
 public static class ServiceCollectionExtensions

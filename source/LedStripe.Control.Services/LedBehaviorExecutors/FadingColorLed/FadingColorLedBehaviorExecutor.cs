@@ -1,4 +1,4 @@
-﻿namespace LedStripe.Control.Implementation.LedBehaviorExecutors.FadingColorLed;
+﻿namespace LedStripe.Control.Services.LedBehaviorExecutors.FadingColorLed;
 
 using System;
 using System.Collections.Generic;

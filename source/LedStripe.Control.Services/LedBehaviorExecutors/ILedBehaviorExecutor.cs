@@ -1,4 +1,4 @@
-﻿namespace LedStripe.Control.Implementation.LedBehaviorExecutors;
+﻿namespace LedStripe.Control.Services.LedBehaviorExecutors;
 
 using System.Drawing;
 

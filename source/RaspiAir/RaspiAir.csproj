@@ -13,7 +13,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\DocumentStorage.FileBased\DocumentStorage.FileBased.csproj" />
-      <ProjectReference Include="..\LedStripe.Control.Implementation\LedStripe.Control.Implementation.csproj" />
+      <ProjectReference Include="..\LedStripe.Control.Services\LedStripe.Control.Services.csproj" />
       <ProjectReference Include="..\LedStripe.Device.Demo\LedStripe.Device.Demo.csproj" />
       <ProjectReference Include="..\LedStripe.Device.Ws2812B\LedStripe.Device.Ws2812B.csproj" />
       <ProjectReference Include="..\RaspiAir.Co2TrafficLight\RaspiAir.Co2TrafficLight.csproj" />

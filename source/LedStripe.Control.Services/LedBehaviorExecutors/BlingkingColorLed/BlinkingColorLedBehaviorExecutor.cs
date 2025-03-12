@@ -1,4 +1,4 @@
-﻿namespace LedStripe.Control.Implementation.LedBehaviorExecutors.BlingkingColorLed;
+﻿namespace LedStripe.Control.Services.LedBehaviorExecutors.BlingkingColorLed;
 
 using System;
 using System.Drawing;

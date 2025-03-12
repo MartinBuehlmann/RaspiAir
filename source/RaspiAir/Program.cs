@@ -5,7 +5,7 @@ using System.IO;
 using Common;
 using DocumentStorage.FileBased;
 using EventBroker;
-using LedStripe.Control.Implementation;
+using LedStripe.Control.Services;
 using LedStripe.Device.Demo;
 using LedStripe.Device.Ws2812B;
 using Microsoft.AspNetCore.Hosting;

@@ -60,7 +60,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DeviceAbstraction", "Device
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LedStripe.Control", "LedStripe.Control\LedStripe.Control.csproj", "{B4C2F15D-B7F4-4294-A5A9-C9547E394962}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LedStripe.Control.Implementation", "LedStripe.Control.Implementation\LedStripe.Control.Implementation.csproj", "{C30FE2BC-B399-4430-89F2-3CB3C067EAA6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LedStripe.Control.Services", "LedStripe.Control.Services\LedStripe.Control.Services.csproj", "{C30FE2BC-B399-4430-89F2-3CB3C067EAA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

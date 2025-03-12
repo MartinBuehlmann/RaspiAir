@@ -1,13 +1,13 @@
-﻿namespace LedStripe.Control.Implementation;
+﻿namespace LedStripe.Control.Services;
 
 using System;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using LedStripe.Control.Implementation.LedBehaviorExecutors;
-using LedStripe.Control.Implementation.Settings;
 using LedStripe.Control.LedBehaviors;
+using LedStripe.Control.Services.LedBehaviorExecutors;
+using LedStripe.Control.Services.Settings;
 using LedStripe.Device;
 
 internal class LedController : ILedController, IDisposable
