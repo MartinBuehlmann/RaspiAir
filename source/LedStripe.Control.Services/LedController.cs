@@ -7,13 +7,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using LedStripe.Control.LedBehaviors;
 using LedStripe.Control.Services.LedBehaviorExecutors;
-using LedStripe.Control.Services.Settings;
+using LedStripe.Control.Settings;
 using LedStripe.Device;
 
 internal class LedController : ILedController, IDisposable
 {
     private readonly Lock ledBehaviorExecutorsLock = new();
-    private readonly LedSettingsLoader settingsLoader;
+    private readonly ILedSettingsProvider ledSettingsProvider;
     private readonly LedBehaviorExecutorFactory ledBehaviorExecutorFactory;
     private readonly ILedStripeControlFactory ledStripeControlFactory;
     private readonly SemaphoreSlim waitHandle;
@@ -21,11 +21,11 @@ internal class LedController : ILedController, IDisposable
     private Color[]? ledColors;
 
     public LedController(
-        LedSettingsLoader settingsLoader,
+        ILedSettingsProvider ledSettingsProvider,
         LedBehaviorExecutorFactory ledBehaviorExecutorFactory,
         ILedStripeControlFactory ledStripeControlFactory)
     {
-        this.settingsLoader = settingsLoader;
+        this.ledSettingsProvider = ledSettingsProvider;
         this.ledBehaviorExecutorFactory = ledBehaviorExecutorFactory;
         this.ledStripeControlFactory = ledStripeControlFactory;
         this.waitHandle = new SemaphoreSlim(0);
@@ -54,7 +54,7 @@ internal class LedController : ILedController, IDisposable
 
     public async Task InitializeAsync()
     {
-        LedSettings settings = await this.settingsLoader.LoadSettingsAsync();
+        LedSettings settings = await this.ledSettingsProvider.ProvideAsync();
         lock (this.ledBehaviorExecutorsLock)
         {
             this.ledBehaviorExecutors = this.GetInitialLedBehaviorExecutors(settings.LedCount);

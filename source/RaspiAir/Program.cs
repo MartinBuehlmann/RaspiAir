@@ -18,7 +18,7 @@ using RaspiAir.Measurement.Services;
 using RaspiAir.Reporting.Services;
 using RaspiAir.Sensors.Demo;
 using RaspiAir.Sensors.Scd41;
-using RaspiAir.Web;
+using RaspiAir.Settings;
 using RaspiAir.Web.Api;
 using Serilog;
 
@@ -61,6 +61,7 @@ public static class Program
                         .AddCommon()
                         .AddEventBroker()
                         .AddFileBasedDocumentStorage()
+                        .AddSettings()
                         .AddMeasurementServices()
                         .AddReportingServices()
                         .AddWebServices()

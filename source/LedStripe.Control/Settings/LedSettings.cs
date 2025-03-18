@@ -1,4 +1,4 @@
-﻿namespace LedStripe.Control.Services.Settings;
+﻿namespace LedStripe.Control.Settings;
 
 public class LedSettings
 {

@@ -75,7 +75,13 @@ public partial class Home : ComponentBase, IAsyncDisposable
 
     private async Task RefreshModelAsync()
     {
-        //this.model = new DashboardModel(new TemperatureModel(20, ValueRating.Perfect), new HumidityModel(45, ValueRating.Good), new Co2ConcentrationModel(1400, ValueRating.NotSoGood), DateTimeOffset.UtcNow);
+        /*
+        this.model = new DashboardModel(
+            new TemperatureModel { Value = 20, Rating = ValueRating.Perfect },
+            new HumidityModel { Value = 45, Rating = ValueRating.Good },
+            new Co2ConcentrationModel { Value = 1400, Rating = ValueRating.NotSoGood },
+            DateTimeOffset.UtcNow);
+        //*/
         this.model = await this.HttpClient.GetFromJsonAsync<DashboardModel>("web/Dashboard");
         await this.InvokeAsync(this.StateHasChanged);
     }

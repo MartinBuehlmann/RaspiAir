@@ -1,19 +1,20 @@
-﻿namespace LedStripe.Control.Services.Settings;
+﻿namespace RaspiAir.Settings;
 
 using System.Threading.Tasks;
 using DocumentStorage;
+using LedStripe.Control.Settings;
 
-public class LedSettingsLoader
+internal class LedSettingsProvider : ILedSettingsProvider
 {
     private const string SettingsFileName = nameof(LedSettings);
     private readonly IDocumentStorage documentStorage;
 
-    public LedSettingsLoader(IDocumentStorage documentStorage)
+    public LedSettingsProvider(IDocumentStorage documentStorage)
     {
         this.documentStorage = documentStorage;
     }
 
-    public async Task<LedSettings> LoadSettingsAsync()
+    public async Task<LedSettings> ProvideAsync()
         => await this.documentStorage.ReadAsync<LedSettings>(SettingsFileName) ??
            await this.CreateAsync(SettingsFileName);
 
