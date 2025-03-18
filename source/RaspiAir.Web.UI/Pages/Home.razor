@@ -1,0 +1,45 @@
+﻿@page "/"
+
+<PageTitle>RaspiAir</PageTitle>
+
+<h2>Air Quality</h2>
+
+@if (model == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <MudGrid Spacing="4">
+        <MudItem>
+            <MudCard width="13em" Class="border-solid border-2 pa-2"
+                     Style="@GetBorderColor(model.Temperature.Rating)">
+                <MudCardContent>
+                    <MudText>Temperature</MudText>
+                    <MudText Typo="Typo.h5">@model.Temperature.Value.ToString("F1") &deg;C</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem>
+            <MudCard width="13em" Class="border-solid border-2 pa-2"
+                     Style="@GetBorderColor(model.Humidity.Rating)">
+                <MudCardContent>
+                    <MudText>Humidity</MudText>
+                    <MudText Typo="Typo.h5">@model.Humidity.Value.ToString("F1") %</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem>
+            <MudCard width="13em" Class="border-solid border-2 pa-2"
+                     Style="@GetBorderColor(model.Co2Concentration.Rating)">
+                <MudCardContent>
+                    <MudText>CO&#8322;</MudText>
+                    <MudText Typo="Typo.h5">@model.Co2Concentration.Value ppm</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+    <MudText Typo="Typo.subtitle2">Last updated: @model.Timestamp.LocalDateTime</MudText>
+}

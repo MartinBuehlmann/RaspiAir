@@ -1,10 +1,10 @@
 ﻿namespace RaspiAir.Sensors.Scd41;
 
 using System;
+using Common.Logging;
 using Meadow;
 using Meadow.Hardware;
 using Meadow.Units;
-using RaspiAir.Common.Logging;
 
 internal class Scd41Sensor : ISensor
 {

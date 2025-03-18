@@ -13,11 +13,15 @@
 
     <ItemGroup>
       <ProjectReference Include="..\DocumentStorage.FileBased\DocumentStorage.FileBased.csproj" />
+      <ProjectReference Include="..\LedStripe.Control.Services\LedStripe.Control.Services.csproj" />
+      <ProjectReference Include="..\LedStripe.Device.Demo\LedStripe.Device.Demo.csproj" />
+      <ProjectReference Include="..\LedStripe.Device.Ws2812B\LedStripe.Device.Ws2812B.csproj" />
+      <ProjectReference Include="..\RaspiAir.Co2TrafficLight\RaspiAir.Co2TrafficLight.csproj" />
       <ProjectReference Include="..\RaspiAir.Measurement.Services\RaspiAir.Measurement.Services.csproj" />
-      <ProjectReference Include="..\RaspiAir.Common\RaspiAir.Common.csproj" />
+      <ProjectReference Include="..\Common\Common.csproj" />
       <ProjectReference Include="..\RaspiAir.Reporting.Services\RaspiAir.Reporting.Services.csproj" />
       <ProjectReference Include="..\RaspiAir.Sensors.Scd41\RaspiAir.Sensors.Scd41.csproj" />
-      <ProjectReference Include="..\RaspiAir.Web\RaspiAir.Web.csproj" />
+      <ProjectReference Include="..\RaspiAir.Web.Api\RaspiAir.Web.Api.csproj" />
       <ProjectReference Include="..\RaspiAir.Sensors.Demo\RaspiAir.Sensors.Demo.csproj" />
     </ItemGroup>
 </Project>

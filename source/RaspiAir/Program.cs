@@ -2,23 +2,24 @@ namespace RaspiAir;
 
 using System;
 using System.IO;
+using Common;
 using DocumentStorage.FileBased;
 using EventBroker;
+using LedStripe.Control.Services;
+using LedStripe.Device.Demo;
+using LedStripe.Device.Ws2812B;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RaspiAir.BackgroundServices;
-using RaspiAir.Common;
+using RaspiAir.Co2TrafficLight;
 using RaspiAir.Measurement.Services;
 using RaspiAir.Reporting.Services;
 using RaspiAir.Sensors.Demo;
-using RaspiAir.Web;
-
-#if DEBUG
-#else
 using RaspiAir.Sensors.Scd41;
-#endif
+using RaspiAir.Settings;
+using RaspiAir.Web.Api;
 using Serilog;
 
 public static class Program
@@ -57,16 +58,21 @@ public static class Program
             .ConfigureServices(
                 (_, services)
                     => services
-                        .AddRaspiAirCommon()
+                        .AddCommon()
                         .AddEventBroker()
                         .AddFileBasedDocumentStorage()
+                        .AddSettings()
                         .AddMeasurementServices()
                         .AddReportingServices()
                         .AddWebServices()
+                        .AddLedStripe()
+                        .AddCo2TrafficLightServices()
 #if DEBUG
                         .AddDemoSensor()
+                        .AddLedStripeDemo()
 #else
                         .AddScd41Sensor()
+                        .AddLedStripeWs2812B()
 #endif
                         .AddHostedService<BackgroundServiceHost>());
     }

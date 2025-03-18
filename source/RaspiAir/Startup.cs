@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using RaspiAir.Logging;
-using RaspiAir.Web.SignalR;
+using RaspiAir.Web.Api.LiveUpdate;
 using Serilog;
 
 public class Startup

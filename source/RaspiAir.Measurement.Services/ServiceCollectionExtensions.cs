@@ -1,7 +1,7 @@
 ﻿namespace RaspiAir.Measurement.Services;
 
+using Common;
 using Microsoft.Extensions.DependencyInjection;
-using RaspiRobot.Lights.Common;
 
 public static class ServiceCollectionExtensions
 {

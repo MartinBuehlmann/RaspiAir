@@ -3,4 +3,11 @@
     <PropertyGroup>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\EventBroker\EventBroker.csproj" />
+      <ProjectReference Include="..\Common\Common.csproj" />
+      <ProjectReference Include="..\LedStripe.Control\LedStripe.Control.csproj" />
+      <ProjectReference Include="..\RaspiAir.Reporting\RaspiAir.Reporting.csproj" />
+    </ItemGroup>
+
 </Project>
