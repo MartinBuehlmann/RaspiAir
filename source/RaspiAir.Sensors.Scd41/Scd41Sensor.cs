@@ -8,6 +8,7 @@ using Meadow.Units;
 
 internal class Scd41Sensor : ISensor
 {
+    private static readonly TimeSpan MeasurementInterval = TimeSpan.FromSeconds(60);
     private readonly Log logger;
     private Meadow.Foundation.Sensors.Environmental.Scd41? sensor;
 
@@ -51,7 +52,7 @@ internal class Scd41Sensor : ISensor
             this.sensor.Subscribe(temperatureConsumer);
             this.sensor.Subscribe(humidityConsumer);
             this.sensor.Subscribe(concentrationConsumer);
-            this.sensor.StartUpdating(TimeSpan.FromSeconds(60));
+            this.sensor.StartUpdating(MeasurementInterval);
         }
     }
 
