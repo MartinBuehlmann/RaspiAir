@@ -27,6 +27,7 @@ internal class LedStripeControl(int ledCount) : ILedStripeControl
             Console.Write("\u2588 ");
         }
 
+        Console.ResetColor(); 
         Console.WriteLine();
     }
 
