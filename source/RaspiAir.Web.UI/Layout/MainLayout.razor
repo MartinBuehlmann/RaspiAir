@@ -40,14 +40,14 @@
 
 @code {
 
-    private bool isDarkMode = true;
-    
-    private MudTheme raspiRobotTheme = new()
+    private readonly MudTheme raspiRobotTheme = new()
     {
         PaletteDark = new PaletteDark()
         {
             Primary = Colors.Gray.Lighten1
         },
     };
+
+    private bool isDarkMode = true;
 
 }

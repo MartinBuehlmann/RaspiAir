@@ -20,15 +20,18 @@ internal class Co2TrafficLightObserverService :
     private readonly EventSubscriber eventSubscriber;
     private readonly IReportingRepository repository;
     private readonly ILedController ledController;
+    private readonly ILedColorPalette ledColorPalette;
 
     public Co2TrafficLightObserverService(
         EventSubscriber eventSubscriber,
         IReportingRepository repository,
-        ILedController ledController)
+        ILedController ledController,
+        ILedColorPalette ledColorPalette)
     {
         this.eventSubscriber = eventSubscriber;
         this.repository = repository;
         this.ledController = ledController;
+        this.ledColorPalette = ledColorPalette;
     }
 
     public int Order => int.MaxValue;
@@ -48,41 +51,47 @@ internal class Co2TrafficLightObserverService :
     public async Task HandleAsync(MeasurementReportUpdatedEvent data)
     {
         Co2Concentration co2Concentration = await this.repository.RetrieveLatestCo2ConcentrationAsync();
+        this.UpdateLeds(co2Concentration.Rating);
+    }
+
+    private void UpdateLeds(ValueRating rating)
+    {
         ILedBehavior[] ledBehaviors = Enumerable.Range(0, this.ledController.LedCount)
             .Select(_ => (ILedBehavior)new OffLedBehavior())
             .ToArray();
 
-        double stepWidth = this.ledController.LedCount / 5.0;
-
-        switch (co2Concentration.Rating)
+        switch (rating)
         {
             case ValueRating.Perfect:
-                VisualizeVeryBad(ledBehaviors, stepWidth);
-                VisualizeBad(ledBehaviors, stepWidth);
-                VisualizeNotSoGood(ledBehaviors, stepWidth);
-                VisualizeGood(ledBehaviors, stepWidth);
-                VisualizePerfect(ledBehaviors, stepWidth);
+                this.VisualizeVeryBad(ledBehaviors);
+                this.VisualizeBad(ledBehaviors);
+                this.VisualizeNotSoGood(ledBehaviors);
+                this.VisualizeGood(ledBehaviors);
+                this.VisualizePerfect(ledBehaviors);
                 break;
             case ValueRating.Good:
-                VisualizeVeryBad(ledBehaviors, stepWidth);
-                VisualizeBad(ledBehaviors, stepWidth);
-                VisualizeNotSoGood(ledBehaviors, stepWidth);
-                VisualizeGood(ledBehaviors, stepWidth);
+                this.VisualizeVeryBad(ledBehaviors);
+                this.VisualizeBad(ledBehaviors);
+                this.VisualizeNotSoGood(ledBehaviors);
+                this.VisualizeGood(ledBehaviors);
                 break;
             case ValueRating.NotSoGood:
-                VisualizeVeryBad(ledBehaviors, stepWidth);
-                VisualizeBad(ledBehaviors, stepWidth);
-                VisualizeNotSoGood(ledBehaviors, stepWidth);
+                this.VisualizeVeryBad(ledBehaviors);
+                this.VisualizeBad(ledBehaviors);
+                this.VisualizeNotSoGood(ledBehaviors);
                 break;
             case ValueRating.Bad:
-                VisualizeVeryBad(ledBehaviors, stepWidth);
-                VisualizeBad(ledBehaviors, stepWidth);
+                this.VisualizeVeryBad(ledBehaviors);
+                this.VisualizeBad(ledBehaviors);
                 break;
             case ValueRating.VeryBad:
-                VisualizeVeryBad(ledBehaviors, stepWidth);
+                this.VisualizeVeryBad(ledBehaviors, true);
                 break;
             default:
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(
+                    nameof(rating),
+                    rating,
+                    "Invalid value rating.");
         }
 
         for (int index = 0; index < this.ledController.LedCount; index++)
@@ -91,38 +100,39 @@ internal class Co2TrafficLightObserverService :
         }
     }
 
-    private static void VisualizePerfect(ILedBehavior[] ledBehaviors, double stepWidth)
+    private void VisualizePerfect(ILedBehavior[] ledBehaviors)
     {
-        Visualize(ledBehaviors, stepWidth, 4, Color.DarkGreen);
+        ledBehaviors[7] = new SolidColorLedBehavior(this.ledColorPalette.DarkGreen);
+        ledBehaviors[6] = new SolidColorLedBehavior(this.ledColorPalette.DarkGreen);
     }
 
-    private static void VisualizeGood(ILedBehavior[] ledBehaviors, double stepWidth)
+    private void VisualizeGood(ILedBehavior[] ledBehaviors)
     {
-        Visualize(ledBehaviors, stepWidth, 3, Color.Green);
+        ledBehaviors[5] = new SolidColorLedBehavior(this.ledColorPalette.Green);
+        ledBehaviors[4] = new SolidColorLedBehavior(this.ledColorPalette.Green);
     }
 
-    private static void VisualizeNotSoGood(ILedBehavior[] ledBehaviors, double stepWidth)
+    private void VisualizeNotSoGood(ILedBehavior[] ledBehaviors)
     {
-        Visualize(ledBehaviors, stepWidth, 2, Color.Yellow);
+        ledBehaviors[3] = new SolidColorLedBehavior(this.ledColorPalette.Yellow);
+        ledBehaviors[2] = new SolidColorLedBehavior(this.ledColorPalette.Yellow);
     }
 
-    private static void VisualizeBad(ILedBehavior[] ledBehaviors, double stepWidth)
+    private void VisualizeBad(ILedBehavior[] ledBehaviors)
     {
-        Visualize(ledBehaviors, stepWidth, 1, Color.Red);
+        ledBehaviors[1] = new SolidColorLedBehavior(this.ledColorPalette.Red);
     }
 
-    private static void VisualizeVeryBad(ILedBehavior[] ledBehaviors, double stepWidth)
+    private void VisualizeVeryBad(ILedBehavior[] ledBehaviors, bool blinking = false)
     {
-        Visualize(ledBehaviors, stepWidth, 0, Color.DarkRed);
-    }
-
-    private static void Visualize(ILedBehavior[] ledBehaviors, double stepWidth, int multiplier, Color color)
-    {
-        int startIndex = multiplier * (int)Math.Round(stepWidth);
-        int endIndex = startIndex + (int)Math.Round(stepWidth);
-        for (int i = startIndex; i < endIndex; i++)
+        if (blinking)
         {
-            ledBehaviors[i] = new SolidColorLedBehavior(color);
+            ledBehaviors[0] =
+                new BlinkingColorLedBehavior(TimeSpan.FromSeconds(1), this.ledColorPalette.Red, Color.Black);
+        }
+        else
+        {
+            ledBehaviors[0] = new SolidColorLedBehavior(this.ledColorPalette.Red);
         }
     }
 }
