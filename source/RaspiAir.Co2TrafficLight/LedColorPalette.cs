@@ -1,6 +1,6 @@
-using System.Drawing;
-
 namespace RaspiAir.Co2TrafficLight;
+
+using System.Drawing;
 
 internal class LedColorPalette : ILedColorPalette
 {
