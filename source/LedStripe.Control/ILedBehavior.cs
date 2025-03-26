@@ -1,5 +1,3 @@
-namespace LedStripe.Control;
+﻿namespace LedStripe.Control;
 
-public interface ILedBehavior
-{
-}
+public interface ILedBehavior;

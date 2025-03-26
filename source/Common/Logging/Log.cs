@@ -6,12 +6,7 @@ using Serilog.Core;
 
 public class Log
 {
-    private readonly ILogger log;
-
-    public Log()
-    {
-        this.log = Serilog.Log.Logger;
-    }
+    private readonly ILogger log = Serilog.Log.Logger;
 
     [MessageTemplateFormatMethod("message")]
     public void Fatal(Exception exception, string message, params object[] parameters)

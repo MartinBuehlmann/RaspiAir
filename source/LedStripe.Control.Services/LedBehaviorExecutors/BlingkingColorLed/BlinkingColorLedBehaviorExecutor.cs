@@ -13,14 +13,9 @@ public class BlinkingColorLedBehaviorExecutor(BlinkingColorLedBehavior behavior)
     {
         if (DateTime.Now - this.lastBlinkTime > behavior.Interval)
         {
-            if (this.currentColor == behavior.Color)
-            {
-                this.currentColor = behavior.AlternateColor;
-            }
-            else
-            {
-                this.currentColor = behavior.Color;
-            }
+            this.currentColor = this.currentColor == behavior.Color ?
+                behavior.AlternateColor :
+                behavior.Color;
 
             this.lastBlinkTime = DateTime.Now;
         }

@@ -1,11 +1,10 @@
-namespace RaspiAir.Reporting.Services;
+﻿namespace RaspiAir.Reporting.Services;
 
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Common;
 using EventBroker;
-using RaspiAir.Measurement;
 using RaspiAir.Measurement.Events;
 using RaspiAir.Reporting.Services.Entities;
 

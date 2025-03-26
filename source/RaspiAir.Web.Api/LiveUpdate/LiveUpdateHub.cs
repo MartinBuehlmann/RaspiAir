@@ -2,6 +2,4 @@
 
 using Microsoft.AspNetCore.SignalR;
 
-public class LiveUpdateHub : Hub
-{
-}
+public class LiveUpdateHub : Hub;

@@ -9,7 +9,7 @@ using LedStripe.Control.LedBehaviors;
 public class FadingColorLedBehaviorExecutor : ILedBehaviorExecutor
 {
     private const int StepCount = 20;
-    private Color[] fadingColors;
+    private readonly Color[] fadingColors;
     private int currentStep;
 
     public FadingColorLedBehaviorExecutor(FadingColorLedBehavior behavior)
