@@ -97,12 +97,10 @@ internal class LedController(
             .Select(ledBehaviorExecutorFactory.Create)
             .ToArray();
 
-    private async Task WaitForLedUpdateAsync(CancellationToken cancellationToken)
-    {
-        await Task.WhenAny(
+    private Task WaitForLedUpdateAsync(CancellationToken cancellationToken)
+        => Task.WhenAny(
             this.waitHandle.WaitAsync(cancellationToken),
             Task.Delay(50, cancellationToken));
-    }
 
     private Color[] GetNewLedColors()
     {

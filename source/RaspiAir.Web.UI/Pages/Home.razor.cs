@@ -62,20 +62,11 @@ public partial class Home(NavigationManager navigation) : ComponentBase, IAsyncD
     private string GetBorderColor(ValueRating valueRating)
         => $"border-color: {this.valueRatings[valueRating]};";
 
-    private async Task OnMeasurementReportUpdatedAsync()
-    {
-        await this.RefreshModelAsync();
-    }
+    private Task OnMeasurementReportUpdatedAsync()
+        => this.RefreshModelAsync();
 
     private async Task RefreshModelAsync()
     {
-        /*
-        this.model = new DashboardModel(
-            new TemperatureModel { Value = 20, Rating = ValueRating.Perfect },
-            new HumidityModel { Value = 45, Rating = ValueRating.Good },
-            new Co2ConcentrationModel { Value = 1400, Rating = ValueRating.NotSoGood },
-            DateTimeOffset.UtcNow);
-        //*/
         this.model = await this.HttpClient.GetFromJsonAsync<DashboardModel>("web/Dashboard");
         await this.InvokeAsync(this.StateHasChanged);
     }
