@@ -6,16 +6,10 @@ using Meadow;
 using Meadow.Hardware;
 using Meadow.Units;
 
-internal class Scd41Sensor : ISensor
+internal class Scd41Sensor(Log logger) : ISensor
 {
     private static readonly TimeSpan MeasurementInterval = TimeSpan.FromSeconds(60);
-    private readonly Log logger;
     private Meadow.Foundation.Sensors.Environmental.Scd41? sensor;
-
-    public Scd41Sensor(Log logger)
-    {
-        this.logger = logger;
-    }
 
     public event Action<double>? OnTemperatureChanged;
 
@@ -29,7 +23,7 @@ internal class Scd41Sensor : ISensor
         this.sensor = new Meadow.Foundation.Sensors.Environmental.Scd41(i2CBus);
 
         var serial = BitConverter.ToString(this.sensor.GetSerialNumber());
-        this.logger.Info("SCD41 Serial: {Serial}", serial);
+        logger.Info("SCD41 Serial: {Serial}", serial);
 
         var temperatureConsumer = this.CreateObserver(
             x => x.New.Temperature?.Celsius,

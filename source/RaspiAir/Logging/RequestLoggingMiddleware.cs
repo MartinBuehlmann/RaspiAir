@@ -8,15 +8,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Serilog;
 
-internal class RequestLoggingMiddleware
+internal class RequestLoggingMiddleware(RequestDelegate next)
 {
-    private readonly RequestDelegate next;
-
-    public RequestLoggingMiddleware(RequestDelegate next)
-    {
-        this.next = next;
-    }
-
     // ReSharper disable once UnusedMember.Global called by framework
     public async Task InvokeAsync(HttpContext httpContext)
     {
@@ -42,6 +35,6 @@ internal class RequestLoggingMiddleware
                     : "[login data]");
         }
 
-        await this.next(httpContext);
+        await next(httpContext);
     }
 }

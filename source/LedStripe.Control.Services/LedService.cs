@@ -5,17 +5,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Common;
 
-internal class LedService : IBackgroundService
+internal class LedService(ILedController ledController) : IBackgroundService
 {
     private static readonly TimeSpan Timeout = TimeSpan.FromSeconds(5);
-    private readonly LedController ledController;
+    private readonly LedController ledController = (LedController)ledController;
     private readonly CancellationTokenSource cancellationTokenSource = new();
     private Task? ledServiceTask;
-
-    public LedService(ILedController ledController)
-    {
-        this.ledController = (LedController)ledController;
-    }
 
     public int Order => 10;
 

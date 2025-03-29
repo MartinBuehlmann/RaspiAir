@@ -8,54 +8,47 @@ using EventBroker;
 using RaspiAir.Measurement.Events;
 using RaspiAir.Reporting.Services.Entities;
 
-internal class ReportingObserverService :
-    IBackgroundService,
-    IEventSubscriptionAsync<TemperatureChangedEvent>,
-    IEventSubscriptionAsync<HumidityChangedEvent>,
-    IEventSubscriptionAsync<Co2ConcentrationChangedEvent>
+internal class ReportingObserverService(
+    EventSubscriber eventSubscriber,
+    ReportingRepository repository)
+    :
+        IBackgroundService,
+        IEventSubscriptionAsync<TemperatureChangedEvent>,
+        IEventSubscriptionAsync<HumidityChangedEvent>,
+        IEventSubscriptionAsync<Co2ConcentrationChangedEvent>
 {
     private readonly Lock locker = new();
-    private readonly EventSubscriber eventSubscriber;
-    private readonly ReportingRepository repository;
-
-    public ReportingObserverService(
-        EventSubscriber eventSubscriber,
-        ReportingRepository repository)
-    {
-        this.eventSubscriber = eventSubscriber;
-        this.repository = repository;
-    }
 
     public int Order => 5;
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        this.eventSubscriber.Subscribe(this);
+        eventSubscriber.Subscribe(this);
         return Task.CompletedTask;
     }
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        this.eventSubscriber.Unsubscribe(this);
+        eventSubscriber.Unsubscribe(this);
         return Task.CompletedTask;
     }
 
     public async Task HandleAsync(TemperatureChangedEvent data)
     {
-        await this.repository.SaveAsync(new TemperatureMeasurementEntity(data.Temperature, data.Timestamp));
+        await repository.SaveAsync(new TemperatureMeasurementEntity(data.Temperature, data.Timestamp));
         this.WriteToConsole(() =>
             Console.WriteLine($"{data.Timestamp.LocalDateTime}: Temperature: {data.Temperature:N1}C"));
     }
 
     public async Task HandleAsync(HumidityChangedEvent data)
     {
-        await this.repository.SaveAsync(new HumidityMeasurementEntity(data.Humidity, data.Timestamp));
+        await repository.SaveAsync(new HumidityMeasurementEntity(data.Humidity, data.Timestamp));
         this.WriteToConsole(() => Console.WriteLine($"{data.Timestamp.LocalDateTime}: Humidity   : {data.Humidity:N1}%"));
     }
 
     public async Task HandleAsync(Co2ConcentrationChangedEvent data)
     {
-        await this.repository.SaveAsync(new Co2ConcentrationMeasurementEntity(data.Co2Concentration, data.Timestamp));
+        await repository.SaveAsync(new Co2ConcentrationMeasurementEntity(data.Co2Concentration, data.Timestamp));
         this.WriteToConsole(() =>
         {
             Console.Write($"{data.Timestamp.LocalDateTime}: CO2        : ");

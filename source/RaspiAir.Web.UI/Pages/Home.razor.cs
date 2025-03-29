@@ -11,7 +11,7 @@ using RaspiAir.Reporting.Domain;
 using RaspiAir.Web.Shared.Events;
 using RaspiAir.Web.Shared.Features.Dashboard;
 
-public partial class Home : ComponentBase, IAsyncDisposable
+public partial class Home(NavigationManager navigation) : ComponentBase, IAsyncDisposable
 {
     private readonly Dictionary<ValueRating, string> valueRatings = new()
     {
@@ -22,14 +22,8 @@ public partial class Home : ComponentBase, IAsyncDisposable
         { ValueRating.Perfect, "#009933" },
     };
 
-    private readonly NavigationManager navigation;
     private DashboardModel? model;
     private HubConnection? hubConnection;
-
-    public Home(NavigationManager navigation)
-    {
-        this.navigation = navigation;
-    }
 
     [Inject]
     private HttpClient HttpClient { get; set; } = null!;
@@ -47,7 +41,7 @@ public partial class Home : ComponentBase, IAsyncDisposable
         await this.RefreshModelAsync();
 
         this.hubConnection = new HubConnectionBuilder()
-            .WithUrl(this.navigation.ToAbsoluteUri($"/{EventTopics.MeasurementReportUpdatedHub}"))
+            .WithUrl(navigation.ToAbsoluteUri($"/{EventTopics.MeasurementReportUpdatedHub}"))
             .WithAutomaticReconnect()
             .Build();
 

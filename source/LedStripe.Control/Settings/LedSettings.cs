@@ -1,11 +1,6 @@
 ﻿namespace LedStripe.Control.Settings;
 
-public class LedSettings
+public class LedSettings(int ledCount)
 {
-    public LedSettings(int ledCount)
-    {
-        this.LedCount = ledCount;
-    }
-
-    public int LedCount { get; }
+    public int LedCount { get; } = ledCount;
 }
