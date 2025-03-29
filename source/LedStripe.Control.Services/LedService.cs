@@ -3,7 +3,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Common;
+using Common.BackgroundServices;
 
 internal class LedService(ILedController ledController) : IBackgroundService
 {

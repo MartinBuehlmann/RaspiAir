@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Common;
+using Common.BackgroundServices;
 using EventBroker;
 using LedStripe.Control;
 using LedStripe.Control.LedBehaviors;
