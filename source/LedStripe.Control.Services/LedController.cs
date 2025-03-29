@@ -100,7 +100,17 @@ internal class LedController(
     private Task WaitForLedUpdateAsync(CancellationToken cancellationToken)
         => Task.WhenAny(
             this.waitHandle.WaitAsync(cancellationToken),
-            Task.Delay(50, cancellationToken));
+            this.GetLedAnimationLedUpdateTaskAsync(cancellationToken));
+
+    private Task GetLedAnimationLedUpdateTaskAsync(CancellationToken cancellationToken)
+    {
+        if (this.ledBehaviorExecutors!.Any(x => x is ILedBehaviorExecutorWithAnimation))
+        {
+            return Task.Delay(50, cancellationToken);
+        }
+
+        return Task.Delay(Timeout.Infinite, cancellationToken);
+    }
 
     private Color[] GetNewLedColors()
     {

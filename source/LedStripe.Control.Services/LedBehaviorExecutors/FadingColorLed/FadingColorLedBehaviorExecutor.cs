@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using LedStripe.Control.LedBehaviors;
 
-public class FadingColorLedBehaviorExecutor : ILedBehaviorExecutor
+public class FadingColorLedBehaviorExecutor : ILedBehaviorExecutor, ILedBehaviorExecutorWithAnimation
 {
     private const int StepCount = 20;
     private readonly Color[] fadingColors;
