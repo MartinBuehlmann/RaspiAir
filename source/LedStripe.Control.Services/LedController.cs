@@ -10,26 +10,16 @@ using LedStripe.Control.Services.LedBehaviorExecutors;
 using LedStripe.Control.Settings;
 using LedStripe.Device;
 
-internal class LedController : ILedController, IDisposable
+internal class LedController(
+    ILedSettingsProvider ledSettingsProvider,
+    LedBehaviorExecutorFactory ledBehaviorExecutorFactory,
+    ILedStripeControlFactory ledStripeControlFactory)
+    : ILedController, IDisposable
 {
     private readonly Lock ledBehaviorExecutorsLock = new();
-    private readonly ILedSettingsProvider ledSettingsProvider;
-    private readonly LedBehaviorExecutorFactory ledBehaviorExecutorFactory;
-    private readonly ILedStripeControlFactory ledStripeControlFactory;
-    private readonly SemaphoreSlim waitHandle;
+    private readonly SemaphoreSlim waitHandle = new(0);
     private ILedBehaviorExecutor[]? ledBehaviorExecutors;
     private Color[]? ledColors;
-
-    public LedController(
-        ILedSettingsProvider ledSettingsProvider,
-        LedBehaviorExecutorFactory ledBehaviorExecutorFactory,
-        ILedStripeControlFactory ledStripeControlFactory)
-    {
-        this.ledSettingsProvider = ledSettingsProvider;
-        this.ledBehaviorExecutorFactory = ledBehaviorExecutorFactory;
-        this.ledStripeControlFactory = ledStripeControlFactory;
-        this.waitHandle = new SemaphoreSlim(0);
-    }
 
     public int LedCount
     {
@@ -46,7 +36,7 @@ internal class LedController : ILedController, IDisposable
 
         lock (this.ledBehaviorExecutorsLock)
         {
-            this.ledBehaviorExecutors![ledIndex] = this.ledBehaviorExecutorFactory.Create(ledBehavior);
+            this.ledBehaviorExecutors![ledIndex] = ledBehaviorExecutorFactory.Create(ledBehavior);
         }
 
         this.waitHandle.Release();
@@ -54,7 +44,7 @@ internal class LedController : ILedController, IDisposable
 
     public async Task InitializeAsync()
     {
-        LedSettings settings = await this.ledSettingsProvider.ProvideAsync();
+        LedSettings settings = await ledSettingsProvider.ProvideAsync();
         lock (this.ledBehaviorExecutorsLock)
         {
             this.ledBehaviorExecutors = this.GetInitialLedBehaviorExecutors(settings.LedCount);
@@ -90,7 +80,7 @@ internal class LedController : ILedController, IDisposable
     {
         this.AssertInitialized();
 
-        using ILedStripeControl ledStripeControl = this.ledStripeControlFactory.Create(this.ledColors!.Length);
+        using ILedStripeControl ledStripeControl = ledStripeControlFactory.Create(this.ledColors!.Length);
     }
 
     private void AssertInitialized()
@@ -104,14 +94,22 @@ internal class LedController : ILedController, IDisposable
     private ILedBehaviorExecutor[] GetInitialLedBehaviorExecutors(int ledCount)
         => Enumerable.Range(0, ledCount)
             .Select(ILedBehavior (_) => new OffLedBehavior())
-            .Select(this.ledBehaviorExecutorFactory.Create)
+            .Select(ledBehaviorExecutorFactory.Create)
             .ToArray();
 
-    private async Task WaitForLedUpdateAsync(CancellationToken cancellationToken)
-    {
-        await Task.WhenAny(
+    private Task WaitForLedUpdateAsync(CancellationToken cancellationToken)
+        => Task.WhenAny(
             this.waitHandle.WaitAsync(cancellationToken),
-            Task.Delay(50, cancellationToken));
+            this.GetLedAnimationLedUpdateTaskAsync(cancellationToken));
+
+    private Task GetLedAnimationLedUpdateTaskAsync(CancellationToken cancellationToken)
+    {
+        if (this.ledBehaviorExecutors!.Any(x => x is ILedBehaviorExecutorWithAnimation))
+        {
+            return Task.Delay(50, cancellationToken);
+        }
+
+        return Task.Delay(Timeout.Infinite, cancellationToken);
     }
 
     private Color[] GetNewLedColors()
@@ -134,7 +132,7 @@ internal class LedController : ILedController, IDisposable
     {
         this.ledColors = newLedColors;
 
-        using ILedStripeControl ledStripeControl = this.ledStripeControlFactory.Create(this.ledColors.Length);
+        using ILedStripeControl ledStripeControl = ledStripeControlFactory.Create(this.ledColors.Length);
         for (int ledIndex = 0; ledIndex < this.ledColors.Length; ledIndex++)
         {
             ledStripeControl.SetPixelLed(ledIndex, this.ledColors[ledIndex]);

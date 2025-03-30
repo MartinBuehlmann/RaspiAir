@@ -4,21 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Common;
+using Common.BackgroundServices;
 using EventBroker;
 
-internal class LiveUpdateBackgroundService : IBackgroundService
+internal class LiveUpdateBackgroundService(
+    IEnumerable<ILiveUpdateEventObserver> liveUpdateEventObservers,
+    EventSubscriber eventSubscriber)
+    : IBackgroundService
 {
-    private readonly EventSubscriber eventSubscriber;
-    private readonly IReadOnlyList<ILiveUpdateEventObserver> liveUpdateEventObservers;
-
-    public LiveUpdateBackgroundService(
-        IEnumerable<ILiveUpdateEventObserver> liveUpdateEventObservers,
-        EventSubscriber eventSubscriber)
-    {
-        this.eventSubscriber = eventSubscriber;
-        this.liveUpdateEventObservers = liveUpdateEventObservers.ToList();
-    }
+    private readonly IReadOnlyList<ILiveUpdateEventObserver> liveUpdateEventObservers =
+        liveUpdateEventObservers.ToList();
 
     public int Order => int.MaxValue;
 
@@ -26,7 +21,7 @@ internal class LiveUpdateBackgroundService : IBackgroundService
     {
         foreach (ILiveUpdateEventObserver liveUpdateEventObserver in this.liveUpdateEventObservers)
         {
-            this.eventSubscriber.Subscribe(liveUpdateEventObserver);
+            eventSubscriber.Subscribe(liveUpdateEventObserver);
         }
 
         return Task.CompletedTask;
@@ -36,7 +31,7 @@ internal class LiveUpdateBackgroundService : IBackgroundService
     {
         foreach (ILiveUpdateEventObserver liveUpdateEventObserver in this.liveUpdateEventObservers)
         {
-            this.eventSubscriber.Unsubscribe(liveUpdateEventObserver);
+            eventSubscriber.Unsubscribe(liveUpdateEventObserver);
         }
 
         return Task.CompletedTask;

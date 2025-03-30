@@ -1,0 +1,3 @@
+﻿namespace LedStripe.Control.Services.LedBehaviorExecutors;
+
+internal interface ILedBehaviorExecutorWithAnimation;

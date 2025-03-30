@@ -7,21 +7,14 @@ using RaspiAir.Reporting;
 using RaspiAir.Reporting.Domain;
 using RaspiAir.Web.Shared.Features.Dashboard;
 
-public class DashboardController : WebController
+public class DashboardController(IReportingRepository reportingRepository) : WebController
 {
-    private readonly IReportingRepository reportingRepository;
-
-    public DashboardController(IReportingRepository reportingRepository)
-    {
-        this.reportingRepository = reportingRepository;
-    }
-
     [HttpGet]
     public async Task<DashboardModel> RetrieveDashboardAsync()
     {
-        Temperature temperature = await this.reportingRepository.RetrieveLatestTemperatureAsync();
-        Humidity humidity = await this.reportingRepository.RetrieveLatestHumidityAsync();
-        Co2Concentration co2Concentration = await this.reportingRepository.RetrieveLatestCo2ConcentrationAsync();
+        Temperature temperature = await reportingRepository.RetrieveLatestTemperatureAsync();
+        Humidity humidity = await reportingRepository.RetrieveLatestHumidityAsync();
+        Co2Concentration co2Concentration = await reportingRepository.RetrieveLatestCo2ConcentrationAsync();
         return new DashboardModel(
             new TemperatureModel { Value = temperature.Value, Rating = temperature.Rating },
             new HumidityModel { Value = humidity.Value, Rating = humidity.Rating },

@@ -10,9 +10,7 @@ using LedStripe.Device.Demo;
 using LedStripe.Device.Ws2812B;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RaspiAir.BackgroundServices;
 using RaspiAir.Co2TrafficLight;
 using RaspiAir.Measurement.Services;
 using RaspiAir.Reporting.Services;
@@ -74,6 +72,6 @@ public static class Program
                         .AddScd41Sensor()
                         .AddLedStripeWs2812B()
 #endif
-                        .AddHostedService<BackgroundServiceHost>());
+                        .AddBackgroundServiceHost());
     }
 }

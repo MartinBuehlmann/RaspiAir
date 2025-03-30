@@ -7,19 +7,12 @@ using RaspiAir.Reporting.Events;
 using RaspiAir.Web.Api.LiveUpdate;
 using RaspiAir.Web.Shared.Events;
 
-internal class MeasurementReportUpdatedObserver :
+internal class MeasurementReportUpdatedObserver(IHubContext<LiveUpdateHub> hub) :
     IEventSubscriptionAsync<MeasurementReportUpdatedEvent>,
     ILiveUpdateEventObserver
 {
-    private readonly IHubContext<LiveUpdateHub> hub;
-
-    public MeasurementReportUpdatedObserver(IHubContext<LiveUpdateHub> hub)
-    {
-        this.hub = hub;
-    }
-
     public async Task HandleAsync(MeasurementReportUpdatedEvent data)
     {
-        await this.hub.Clients.All.SendAsync(EventTopics.MeasurementReportUpdated);
+        await hub.Clients.All.SendAsync(EventTopics.MeasurementReportUpdated);
     }
 }

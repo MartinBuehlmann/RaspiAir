@@ -1,20 +1,14 @@
-namespace RaspiAir.BackgroundServices;
+namespace Common.BackgroundServices;
 
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Common;
 using Microsoft.Extensions.Hosting;
 
-public class BackgroundServiceHost : IHostedService
+internal class BackgroundServiceHost(IEnumerable<IBackgroundService> backgroundServices) : IHostedService
 {
-    private readonly IReadOnlyList<IBackgroundService> backgroundServices;
-
-    public BackgroundServiceHost(IEnumerable<IBackgroundService> backgroundServices)
-    {
-        this.backgroundServices = backgroundServices.ToList();
-    }
+    private readonly IReadOnlyList<IBackgroundService> backgroundServices = backgroundServices.ToList();
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {

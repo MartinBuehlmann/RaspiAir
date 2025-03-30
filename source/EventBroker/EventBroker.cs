@@ -5,22 +5,16 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 
-internal class EventBroker : IEventBroker
+internal class EventBroker(IEventRegistration registration) : IEventBroker
 {
-    private readonly IEventRegistration registration;
     private int eventCount;
-
-    public EventBroker(IEventRegistration registration)
-    {
-        this.registration = registration;
-    }
 
     public int QueuedEvents => this.eventCount;
 
     public void Publish<T>(T data)
         where T : class
     {
-        foreach (IEventSubscriptionBase subscription in ((EventRegistration)this.registration).Retrieve(data))
+        foreach (IEventSubscriptionBase subscription in ((EventRegistration)registration).Retrieve(data))
         {
             this.FireAndForgetEvent(data, subscription);
         }

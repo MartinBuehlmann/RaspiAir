@@ -1,4 +1,4 @@
-namespace Common;
+namespace Common.BackgroundServices;
 
 using System.Threading;
 using System.Threading.Tasks;

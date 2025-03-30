@@ -2,14 +2,9 @@
 
 using System;
 
-public class EventArgs<T> : EventArgs
+public class EventArgs<T>(T value) : EventArgs
 {
-    public EventArgs(T value)
-    {
-        this.Value = value;
-    }
-
-    public T Value { get; }
+    public T Value { get; } = value;
 
     public override string ToString()
     {

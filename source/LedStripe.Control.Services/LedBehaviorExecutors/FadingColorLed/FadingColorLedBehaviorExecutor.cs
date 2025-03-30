@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using LedStripe.Control.LedBehaviors;
 
-public class FadingColorLedBehaviorExecutor : ILedBehaviorExecutor
+public class FadingColorLedBehaviorExecutor : ILedBehaviorExecutor, ILedBehaviorExecutorWithAnimation
 {
     private const int StepCount = 20;
     private readonly Color[] fadingColors;
@@ -27,13 +27,13 @@ public class FadingColorLedBehaviorExecutor : ILedBehaviorExecutor
                         Math.Min(255, step * blueStepSize)))
             .ToArray();
 
-        var fadingColors = new List<Color>(fadeInColors);
+        var colors = new List<Color>(fadeInColors);
         for (int index = fadeInColors.Length - 1; index >= 0; index--)
         {
-            fadingColors.Add(fadeInColors[index]);
+            colors.Add(fadeInColors[index]);
         }
 
-        this.fadingColors = fadingColors.ToArray();
+        this.fadingColors = colors.ToArray();
     }
 
     public Color GetColor()

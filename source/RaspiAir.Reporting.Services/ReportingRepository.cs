@@ -10,7 +10,10 @@ using RaspiAir.Reporting.Domain;
 using RaspiAir.Reporting.Events;
 using RaspiAir.Reporting.Services.Entities;
 
-internal class ReportingRepository : IReportingRepository
+internal class ReportingRepository(
+    IDocumentStorage documentStorage,
+    IEventBroker eventBroker)
+    : IReportingRepository
 {
     private const string LatestTemperatureFileName = "LatestTemperature";
     private const string LatestHumidityFileName = "LatestHumidity";
@@ -18,20 +21,10 @@ internal class ReportingRepository : IReportingRepository
     private const string TemperatureFilePrefix = "Temperature";
     private const string HumidityFilePrefix = "Humidity";
     private const string Co2ConcentrationFilePrefix = "Co2Concentration";
-    private readonly IDocumentStorage documentStorage;
-    private readonly IEventBroker eventBroker;
-
-    public ReportingRepository(
-        IDocumentStorage documentStorage,
-        IEventBroker eventBroker)
-    {
-        this.documentStorage = documentStorage;
-        this.eventBroker = eventBroker;
-    }
 
     public async Task SaveAsync(TemperatureMeasurementEntity entity)
     {
-        await this.documentStorage.UpdateAsync<TemperatureMeasurementEntity>(
+        await documentStorage.UpdateAsync<TemperatureMeasurementEntity>(
             LatestTemperatureFileName,
             x =>
             {
@@ -39,16 +32,16 @@ internal class ReportingRepository : IReportingRepository
                 x.Timestamp = entity.Timestamp;
             });
 
-        await this.documentStorage.UpdateAsync<MeasurementEntityCollection<TemperatureMeasurementEntity>>(
+        await documentStorage.UpdateAsync<MeasurementEntityCollection<TemperatureMeasurementEntity>>(
             DailyMeasurementFileNameBuilder.Build(TemperatureFilePrefix, entity.Timestamp),
             x => x.Items.Add(entity));
 
-        this.eventBroker.Publish(new MeasurementReportUpdatedEvent());
+        eventBroker.Publish(new MeasurementReportUpdatedEvent());
     }
 
     public async Task SaveAsync(HumidityMeasurementEntity entity)
     {
-        await this.documentStorage.UpdateAsync<HumidityMeasurementEntity>(
+        await documentStorage.UpdateAsync<HumidityMeasurementEntity>(
             LatestHumidityFileName,
             x =>
             {
@@ -56,16 +49,16 @@ internal class ReportingRepository : IReportingRepository
                 x.Timestamp = entity.Timestamp;
             });
 
-        await this.documentStorage.UpdateAsync<MeasurementEntityCollection<HumidityMeasurementEntity>>(
+        await documentStorage.UpdateAsync<MeasurementEntityCollection<HumidityMeasurementEntity>>(
             DailyMeasurementFileNameBuilder.Build(HumidityFilePrefix, entity.Timestamp),
             x => x.Items.Add(entity));
 
-        this.eventBroker.Publish(new MeasurementReportUpdatedEvent());
+        eventBroker.Publish(new MeasurementReportUpdatedEvent());
     }
 
     public async Task SaveAsync(Co2ConcentrationMeasurementEntity entity)
     {
-        await this.documentStorage.UpdateAsync<Co2ConcentrationMeasurementEntity>(
+        await documentStorage.UpdateAsync<Co2ConcentrationMeasurementEntity>(
             LatestCo2ConcentrationFileName,
             x =>
             {
@@ -73,23 +66,23 @@ internal class ReportingRepository : IReportingRepository
                 x.Timestamp = entity.Timestamp;
             });
 
-        await this.documentStorage.UpdateAsync<MeasurementEntityCollection<Co2ConcentrationMeasurementEntity>>(
+        await documentStorage.UpdateAsync<MeasurementEntityCollection<Co2ConcentrationMeasurementEntity>>(
             DailyMeasurementFileNameBuilder.Build(Co2ConcentrationFilePrefix, entity.Timestamp),
             x => x.Items.Add(entity));
 
-        this.eventBroker.Publish(new MeasurementReportUpdatedEvent());
+        eventBroker.Publish(new MeasurementReportUpdatedEvent());
     }
 
     public async Task<Temperature> RetrieveLatestTemperatureAsync()
     {
-        var entity = await this.documentStorage.ReadAsync<TemperatureMeasurementEntity>(LatestTemperatureFileName) ??
+        var entity = await documentStorage.ReadAsync<TemperatureMeasurementEntity>(LatestTemperatureFileName) ??
                      new TemperatureMeasurementEntity();
         return new Temperature(entity.Temperature, entity.Timestamp);
     }
 
     public async Task<Humidity> RetrieveLatestHumidityAsync()
     {
-        var entity = await this.documentStorage.ReadAsync<HumidityMeasurementEntity>(LatestHumidityFileName) ??
+        var entity = await documentStorage.ReadAsync<HumidityMeasurementEntity>(LatestHumidityFileName) ??
                      new HumidityMeasurementEntity();
         return new Humidity(entity.Humidity, entity.Timestamp);
     }
@@ -97,7 +90,7 @@ internal class ReportingRepository : IReportingRepository
     public async Task<Co2Concentration> RetrieveLatestCo2ConcentrationAsync()
     {
         var entity =
-            await this.documentStorage.ReadAsync<Co2ConcentrationMeasurementEntity>(LatestCo2ConcentrationFileName) ??
+            await documentStorage.ReadAsync<Co2ConcentrationMeasurementEntity>(LatestCo2ConcentrationFileName) ??
             new Co2ConcentrationMeasurementEntity();
         return new Co2Concentration(entity.Co2Concentration, entity.Timestamp);
     }
@@ -105,7 +98,7 @@ internal class ReportingRepository : IReportingRepository
     public async Task<IReadOnlyList<Temperature>> RetrieveTemperatureHistoryAsync(DateTimeOffset date)
     {
         MeasurementEntityCollection<TemperatureMeasurementEntity> values =
-            await this.documentStorage.ReadAsync<MeasurementEntityCollection<TemperatureMeasurementEntity>>(
+            await documentStorage.ReadAsync<MeasurementEntityCollection<TemperatureMeasurementEntity>>(
                 DailyMeasurementFileNameBuilder.Build(TemperatureFilePrefix, date)) ??
             new MeasurementEntityCollection<TemperatureMeasurementEntity>();
 
@@ -117,7 +110,7 @@ internal class ReportingRepository : IReportingRepository
     public async Task<IReadOnlyList<Humidity>> RetrieveHumidityHistoryAsync(DateTimeOffset date)
     {
         MeasurementEntityCollection<HumidityMeasurementEntity> values =
-            await this.documentStorage.ReadAsync<MeasurementEntityCollection<HumidityMeasurementEntity>>(
+            await documentStorage.ReadAsync<MeasurementEntityCollection<HumidityMeasurementEntity>>(
                 DailyMeasurementFileNameBuilder.Build(HumidityFilePrefix, date)) ??
             new MeasurementEntityCollection<HumidityMeasurementEntity>();
 
@@ -129,7 +122,7 @@ internal class ReportingRepository : IReportingRepository
     public async Task<IReadOnlyList<Co2Concentration>> RetrieveCo2ConcentrationHistoryAsync(DateTimeOffset date)
     {
         MeasurementEntityCollection<Co2ConcentrationMeasurementEntity> values =
-            await this.documentStorage.ReadAsync<MeasurementEntityCollection<Co2ConcentrationMeasurementEntity>>(
+            await documentStorage.ReadAsync<MeasurementEntityCollection<Co2ConcentrationMeasurementEntity>>(
                 DailyMeasurementFileNameBuilder.Build(Co2ConcentrationFilePrefix, date)) ??
             new MeasurementEntityCollection<Co2ConcentrationMeasurementEntity>();
 
