@@ -6,6 +6,7 @@ using AppServices.Common;
 using AppServices.DocumentStorage.FileBased;
 using AppServices.EventBroker;
 using AppServices.LedStripe.Device.Demo;
+using AppServices.LedStripe.Device.Ws2812B;
 using LedStripe.Control.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
