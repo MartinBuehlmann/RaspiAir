@@ -5,6 +5,11 @@ root = true
 indent_size = 4
 
 # dotnet_diagnostic rules are supported
+dotnet_diagnostic.CA1062.severity = none
+dotnet_diagnostic.CA1812.severity = none
+dotnet_diagnostic.CA1852.severity = none
+dotnet_diagnostic.CA1860.severity = none
+dotnet_diagnostic.CA2007.severity = none
 dotnet_diagnostic.sa0001.severity = none
 dotnet_diagnostic.sa1118.severity = none
 dotnet_diagnostic.sa1600.severity = none

@@ -1,7 +1,8 @@
 ﻿namespace RaspiAir.Sensors.Scd41;
 
 using System;
-using Common.Logging;
+using AppServices.Common;
+using AppServices.Common.Logging;
 using Meadow;
 using Meadow.Hardware;
 using Meadow.Units;
@@ -11,13 +12,13 @@ internal class Scd41Sensor(Log logger) : ISensor
     private static readonly TimeSpan MeasurementInterval = TimeSpan.FromSeconds(60);
     private Meadow.Foundation.Sensors.Environmental.Scd41? sensor;
 
-    public event Action<double>? OnTemperatureChanged;
+    public event EventHandler<EventArgs<double>>? TemperatureChanged;
 
-    public event Action<double>? OnHumidityChanged;
+    public event EventHandler<EventArgs<double>>? HumidityChanged;
 
-    public event Action<int>? OnCo2ConcentrationChanged;
+    public event EventHandler<EventArgs<int>>? Co2ConcentrationChanged;
 
-    public void Start()
+    public void StartSensor()
     {
         II2cBus i2CBus = new RaspberryPi().CreateI2cBus();
         this.sensor = new Meadow.Foundation.Sensors.Environmental.Scd41(i2CBus);
@@ -25,20 +26,20 @@ internal class Scd41Sensor(Log logger) : ISensor
         var serial = BitConverter.ToString(this.sensor.GetSerialNumber());
         logger.Info("SCD41 Serial: {Serial}", serial);
 
-        var temperatureConsumer = this.CreateObserver(
+        var temperatureConsumer = CreateObserver(
             x => x.New.Temperature?.Celsius,
             x => x.Old?.Temperature?.Celsius,
-            x => this.OnTemperatureChanged?.Invoke(x));
+            x => this.TemperatureChanged?.Invoke(this, new EventArgs<double>(x)));
 
-        var humidityConsumer = this.CreateObserver(
+        var humidityConsumer = CreateObserver(
             x => x.New.Humidity?.Percent,
             x => x.Old?.Humidity?.Percent,
-            x => this.OnHumidityChanged?.Invoke(x));
+            x => this.HumidityChanged?.Invoke(this, new EventArgs<double>(x)));
 
-        var concentrationConsumer = this.CreateObserver(
+        var concentrationConsumer = CreateObserver(
             x => x.New.Concentration?.PartsPerMillion,
             x => x.Old?.Concentration?.PartsPerMillion,
-            x => this.OnCo2ConcentrationChanged?.Invoke((int)x),
+            x => this.Co2ConcentrationChanged?.Invoke(this, new EventArgs<int>((int)x)),
             1);
 
         if (this.sensor != null)
@@ -50,7 +51,7 @@ internal class Scd41Sensor(Log logger) : ISensor
         }
     }
 
-    public void Stop()
+    public void StopSensor()
     {
         if (this.sensor == null)
         {
@@ -60,7 +61,7 @@ internal class Scd41Sensor(Log logger) : ISensor
         this.sensor.StopUpdating();
     }
 
-    private FilterableChangeObserver<
+    private static FilterableChangeObserver<
             (Concentration? Concentration, Temperature? Temperature, RelativeHumidity? Humidity)>
         CreateObserver(
             Func<IChangeResult<(Concentration? Concentration, Temperature? Temperature, RelativeHumidity? Humidity)>,

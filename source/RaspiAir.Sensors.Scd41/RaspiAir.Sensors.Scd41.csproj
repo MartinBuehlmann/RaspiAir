@@ -4,7 +4,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Common\Common.csproj" />
+      <ProjectReference Include="..\AppServices.Common\AppServices.Common.csproj" />
       <ProjectReference Include="..\RaspiAir.Sensors\RaspiAir.Sensors.csproj" />
     </ItemGroup>
 

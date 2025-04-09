@@ -1,16 +1,17 @@
 ﻿namespace RaspiAir.Sensors;
 
 using System;
+using AppServices.Common;
 
 public interface ISensor
 {
-    event Action<double>? OnTemperatureChanged;
+    event EventHandler<EventArgs<double>> TemperatureChanged;
 
-    event Action<double>? OnHumidityChanged;
+    event EventHandler<EventArgs<double>> HumidityChanged;
 
-    event Action<int>? OnCo2ConcentrationChanged;
+    event EventHandler<EventArgs<int>> Co2ConcentrationChanged;
 
-    void Start();
+    void StartSensor();
 
-    void Stop();
+    void StopSensor();
 }

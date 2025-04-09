@@ -4,8 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DocumentStorage;
-using EventBroker;
+using AppServices.DocumentStorage;
+using AppServices.EventBroker;
 using RaspiAir.Reporting.Domain;
 using RaspiAir.Reporting.Events;
 using RaspiAir.Reporting.Services.Entities;
@@ -95,11 +95,11 @@ internal class ReportingRepository(
         return new Co2Concentration(entity.Co2Concentration, entity.Timestamp);
     }
 
-    public async Task<IReadOnlyList<Temperature>> RetrieveTemperatureHistoryAsync(DateTimeOffset date)
+    public async Task<IReadOnlyList<Temperature>> RetrieveTemperatureHistoryAsync(DateTimeOffset dateTime)
     {
         MeasurementEntityCollection<TemperatureMeasurementEntity> values =
             await documentStorage.ReadAsync<MeasurementEntityCollection<TemperatureMeasurementEntity>>(
-                DailyMeasurementFileNameBuilder.Build(TemperatureFilePrefix, date)) ??
+                DailyMeasurementFileNameBuilder.Build(TemperatureFilePrefix, dateTime)) ??
             new MeasurementEntityCollection<TemperatureMeasurementEntity>();
 
         return values.Items
@@ -107,11 +107,11 @@ internal class ReportingRepository(
             .ToList();
     }
 
-    public async Task<IReadOnlyList<Humidity>> RetrieveHumidityHistoryAsync(DateTimeOffset date)
+    public async Task<IReadOnlyList<Humidity>> RetrieveHumidityHistoryAsync(DateTimeOffset dateTime)
     {
         MeasurementEntityCollection<HumidityMeasurementEntity> values =
             await documentStorage.ReadAsync<MeasurementEntityCollection<HumidityMeasurementEntity>>(
-                DailyMeasurementFileNameBuilder.Build(HumidityFilePrefix, date)) ??
+                DailyMeasurementFileNameBuilder.Build(HumidityFilePrefix, dateTime)) ??
             new MeasurementEntityCollection<HumidityMeasurementEntity>();
 
         return values.Items
@@ -119,11 +119,11 @@ internal class ReportingRepository(
             .ToList();
     }
 
-    public async Task<IReadOnlyList<Co2Concentration>> RetrieveCo2ConcentrationHistoryAsync(DateTimeOffset date)
+    public async Task<IReadOnlyList<Co2Concentration>> RetrieveCo2ConcentrationHistoryAsync(DateTimeOffset dateTime)
     {
         MeasurementEntityCollection<Co2ConcentrationMeasurementEntity> values =
             await documentStorage.ReadAsync<MeasurementEntityCollection<Co2ConcentrationMeasurementEntity>>(
-                DailyMeasurementFileNameBuilder.Build(Co2ConcentrationFilePrefix, date)) ??
+                DailyMeasurementFileNameBuilder.Build(Co2ConcentrationFilePrefix, dateTime)) ??
             new MeasurementEntityCollection<Co2ConcentrationMeasurementEntity>();
 
         return values.Items

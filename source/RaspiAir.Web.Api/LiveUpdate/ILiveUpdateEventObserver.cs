@@ -1,5 +1,5 @@
 ﻿namespace RaspiAir.Web.Api.LiveUpdate;
 
-using EventBroker;
+using AppServices.EventBroker;
 
 internal interface ILiveUpdateEventObserver : IEventSubscriptionBase;

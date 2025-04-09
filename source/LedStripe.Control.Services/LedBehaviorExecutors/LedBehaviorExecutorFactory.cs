@@ -9,7 +9,7 @@ using LedStripe.Control.Services.LedBehaviorExecutors.SolidColorLed;
 
 internal class LedBehaviorExecutorFactory
 {
-    public ILedBehaviorExecutor Create(ILedBehavior ledBehavior)
+    public static ILedBehaviorExecutor Create(ILedBehavior ledBehavior)
         => ledBehavior switch
         {
             BlinkingColorLedBehavior behavior => new BlinkingColorLedBehaviorExecutor(behavior),

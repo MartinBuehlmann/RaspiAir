@@ -1,6 +1,7 @@
 ﻿namespace LedStripe.Control.Services;
 
-using Common.BackgroundServices;
+using AppServices.Common.BackgroundServices;
+
 using LedStripe.Control.Services.LedBehaviorExecutors;
 using Microsoft.Extensions.DependencyInjection;
 

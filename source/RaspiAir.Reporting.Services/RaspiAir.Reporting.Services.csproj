@@ -4,9 +4,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DocumentStorage\DocumentStorage.csproj" />
-      <ProjectReference Include="..\EventBroker\EventBroker.csproj" />
-      <ProjectReference Include="..\Common\Common.csproj" />
+      <ProjectReference Include="..\AppServices.DocumentStorage\AppServices.DocumentStorage.csproj" />
+      <ProjectReference Include="..\AppServices.EventBroker\AppServices.EventBroker.csproj" />
+      <ProjectReference Include="..\AppServices.Common\AppServices.Common.csproj" />
       <ProjectReference Include="..\RaspiAir.Measurement\RaspiAir.Measurement.csproj" />
       <ProjectReference Include="..\RaspiAir.Reporting\RaspiAir.Reporting.csproj" />
     </ItemGroup>

@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Common.BackgroundServices;
-using EventBroker;
+using AppServices.Common.BackgroundServices;
+using AppServices.EventBroker;
 
 internal class LiveUpdateBackgroundService(
     IEnumerable<ILiveUpdateEventObserver> liveUpdateEventObservers,

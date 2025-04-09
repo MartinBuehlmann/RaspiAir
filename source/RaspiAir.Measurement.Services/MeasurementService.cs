@@ -3,8 +3,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Common.BackgroundServices;
-using EventBroker;
+using AppServices.Common;
+using AppServices.Common.BackgroundServices;
+using AppServices.EventBroker;
 using RaspiAir.Measurement.Events;
 using RaspiAir.Sensors;
 
@@ -16,37 +17,37 @@ internal class MeasurementService(
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        sensor.Start();
-        sensor.OnTemperatureChanged += this.HandleTemperatureChanged;
-        sensor.OnHumidityChanged += this.HandleHumidityChanged;
-        sensor.OnCo2ConcentrationChanged += this.HandleCo2ConcentrationChanged;
+        sensor.StartSensor();
+        sensor.TemperatureChanged += this.HandleTemperatureChanged;
+        sensor.HumidityChanged += this.HandleHumidityChanged;
+        sensor.Co2ConcentrationChanged += this.HandleCo2ConcentrationChanged;
         return Task.CompletedTask;
     }
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        sensor.OnTemperatureChanged -= this.HandleTemperatureChanged;
-        sensor.OnHumidityChanged -= this.HandleHumidityChanged;
-        sensor.OnCo2ConcentrationChanged -= this.HandleCo2ConcentrationChanged;
-        sensor.Stop();
+        sensor.TemperatureChanged -= this.HandleTemperatureChanged;
+        sensor.HumidityChanged -= this.HandleHumidityChanged;
+        sensor.Co2ConcentrationChanged -= this.HandleCo2ConcentrationChanged;
+        sensor.StopSensor();
         return Task.CompletedTask;
     }
 
-    private void HandleTemperatureChanged(double value)
+    private void HandleTemperatureChanged(object? sender, EventArgs<double> e)
     {
         eventBroker.Publish(
-            new TemperatureChangedEvent(value, DateTimeOffset.UtcNow));
+            new TemperatureChangedEvent(e.Value, DateTimeOffset.UtcNow));
     }
 
-    private void HandleHumidityChanged(double value)
+    private void HandleHumidityChanged(object? sender, EventArgs<double> e)
     {
         eventBroker.Publish(
-            new HumidityChangedEvent(value, DateTimeOffset.UtcNow));
+            new HumidityChangedEvent(e.Value, DateTimeOffset.UtcNow));
     }
 
-    private void HandleCo2ConcentrationChanged(int value)
+    private void HandleCo2ConcentrationChanged(object? sender, EventArgs<int> e)
     {
         eventBroker.Publish(
-            new Co2ConcentrationChangedEvent(value, DateTimeOffset.UtcNow));
+            new Co2ConcentrationChangedEvent(e.Value, DateTimeOffset.UtcNow));
     }
 }

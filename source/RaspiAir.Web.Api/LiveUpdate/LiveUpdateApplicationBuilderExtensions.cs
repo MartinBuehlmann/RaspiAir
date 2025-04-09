@@ -1,7 +1,7 @@
 ﻿namespace RaspiAir.Web.Api.LiveUpdate;
 
 using Microsoft.AspNetCore.Builder;
-using RaspiAir.Web.Shared.Events;
+using RaspiAir.Web.Common.Events;
 
 public static class LiveUpdateApplicationBuilderExtensions
 {

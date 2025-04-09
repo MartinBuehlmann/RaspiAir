@@ -11,7 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\RaspiAir.Web.Shared\RaspiAir.Web.Shared.csproj" />
+      <ProjectReference Include="..\RaspiAir.Web.Common\RaspiAir.Web.Common.csproj" />
     </ItemGroup>
 
 </Project>

@@ -4,10 +4,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DocumentStorage\DocumentStorage.csproj" />
+      <ProjectReference Include="..\AppServices.DocumentStorage\AppServices.DocumentStorage.csproj" />
       <ProjectReference Include="..\LedStripe.Control\LedStripe.Control.csproj" />
-      <ProjectReference Include="..\Common\Common.csproj" />
-      <ProjectReference Include="..\LedStripe.Device\LedStripe.Device.csproj" />
+      <ProjectReference Include="..\AppServices.Common\AppServices.Common.csproj" />
+      <ProjectReference Include="..\AppServices.LedStripe.Device\AppServices.LedStripe.Device.csproj" />
     </ItemGroup>
 
     <ItemGroup>

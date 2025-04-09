@@ -1,42 +1,52 @@
 ﻿namespace RaspiAir.Sensors.Demo;
 
 using System;
+using System.Security.Cryptography;
 using System.Timers;
+using AppServices.Common;
 
-internal class DemoSensor : ISensor
+internal class DemoSensor : ISensor, IDisposable
 {
     private Timer? timer;
 
-    public event Action<double>? OnTemperatureChanged;
+    public event EventHandler<EventArgs<double>>? TemperatureChanged;
 
-    public event Action<double>? OnHumidityChanged;
+    public event EventHandler<EventArgs<double>>? HumidityChanged;
 
-    public event Action<int>? OnCo2ConcentrationChanged;
+    public event EventHandler<EventArgs<int>>? Co2ConcentrationChanged;
 
-    public void Start()
+    public void StartSensor()
     {
         this.timer = new Timer(TimeSpan.FromSeconds(10));
         this.timer.Elapsed += this.HandleTimerElapsed;
         this.timer.Start();
     }
 
-    public void Stop()
+    public void StopSensor()
     {
         this.timer!.Stop();
         this.timer!.Elapsed -= this.HandleTimerElapsed;
         this.timer.Dispose();
     }
 
+    public void Dispose()
+    {
+        this.timer?.Dispose();
+    }
+
     private static double GetRandomNumber(double minimum, double maximum)
     {
-        var random = new Random();
-        return (random.NextDouble() * (maximum - minimum)) + minimum;
+        byte[] randomBytes = RandomNumberGenerator.GetBytes(8);
+        ulong x = BitConverter.ToUInt64(randomBytes, 0) / (1 << 11);
+        double randomValue = x / (double)(1UL << 53);
+
+        return (randomValue * (maximum - minimum)) + minimum;
     }
 
     private void HandleTimerElapsed(object? sender, ElapsedEventArgs e)
     {
-        this.OnTemperatureChanged?.Invoke(GetRandomNumber(18.5, 21.2));
-        this.OnHumidityChanged?.Invoke(GetRandomNumber(30, 40));
-        this.OnCo2ConcentrationChanged?.Invoke((int)GetRandomNumber(300, 3000));
+        this.TemperatureChanged?.Invoke(this, new EventArgs<double>(GetRandomNumber(18.5, 21.2)));
+        this.HumidityChanged?.Invoke(this, new EventArgs<double>(GetRandomNumber(30, 40)));
+        this.Co2ConcentrationChanged?.Invoke(this, new EventArgs<int>((int)GetRandomNumber(300, 3000)));
     }
 }

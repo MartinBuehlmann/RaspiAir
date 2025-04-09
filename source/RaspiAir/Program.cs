@@ -2,12 +2,11 @@ namespace RaspiAir;
 
 using System;
 using System.IO;
-using Common;
-using DocumentStorage.FileBased;
-using EventBroker;
+using AppServices.Common;
+using AppServices.DocumentStorage.FileBased;
+using AppServices.EventBroker;
+using AppServices.LedStripe.Device.Demo;
 using LedStripe.Control.Services;
-using LedStripe.Device.Demo;
-using LedStripe.Device.Ws2812B;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -20,7 +19,7 @@ using RaspiAir.Settings;
 using RaspiAir.Web.Api;
 using Serilog;
 
-public static class Program
+internal static class Program
 {
     public static void Main(string[] args)
     {

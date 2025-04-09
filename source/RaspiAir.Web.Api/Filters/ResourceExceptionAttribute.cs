@@ -4,7 +4,7 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-public class ResourceExceptionAttribute : ActionFilterAttribute
+public sealed class ResourceExceptionAttribute : ActionFilterAttribute
 {
     public override void OnActionExecuted(ActionExecutedContext context)
     {

@@ -8,10 +8,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
 using RaspiAir.Reporting.Domain;
-using RaspiAir.Web.Shared.Events;
-using RaspiAir.Web.Shared.Features.Dashboard;
+using RaspiAir.Web.Common.Events;
+using RaspiAir.Web.Common.Features.Dashboard;
 
+// Component must be public
+#pragma warning disable CA1515
 public partial class Home(NavigationManager navigation) : ComponentBase, IAsyncDisposable
+#pragma warning restore CA1515
 {
     private readonly Dictionary<ValueRating, string> valueRatings = new()
     {
@@ -34,6 +37,8 @@ public partial class Home(NavigationManager navigation) : ComponentBase, IAsyncD
         {
             await this.hubConnection.DisposeAsync();
         }
+
+        GC.SuppressFinalize(this);
     }
 
     protected override async Task OnInitializedAsync()

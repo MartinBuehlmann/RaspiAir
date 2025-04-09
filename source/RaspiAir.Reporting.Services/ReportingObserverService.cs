@@ -2,8 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using Common.BackgroundServices;
-using EventBroker;
+using AppServices.Common.BackgroundServices;
+using AppServices.EventBroker;
 using RaspiAir.Measurement.Events;
 using RaspiAir.Reporting.Services.Entities;
 

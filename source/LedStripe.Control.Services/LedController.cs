@@ -5,14 +5,13 @@ using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AppServices.LedStripe.Device;
 using LedStripe.Control.LedBehaviors;
 using LedStripe.Control.Services.LedBehaviorExecutors;
 using LedStripe.Control.Settings;
-using LedStripe.Device;
 
 internal class LedController(
     ILedSettingsProvider ledSettingsProvider,
-    LedBehaviorExecutorFactory ledBehaviorExecutorFactory,
     ILedStripeControlFactory ledStripeControlFactory)
     : ILedController, IDisposable
 {
@@ -36,7 +35,7 @@ internal class LedController(
 
         lock (this.ledBehaviorExecutorsLock)
         {
-            this.ledBehaviorExecutors![ledIndex] = ledBehaviorExecutorFactory.Create(ledBehavior);
+            this.ledBehaviorExecutors![ledIndex] = LedBehaviorExecutorFactory.Create(ledBehavior);
         }
 
         this.waitHandle.Release();
@@ -47,7 +46,7 @@ internal class LedController(
         LedSettings settings = await ledSettingsProvider.ProvideAsync();
         lock (this.ledBehaviorExecutorsLock)
         {
-            this.ledBehaviorExecutors = this.GetInitialLedBehaviorExecutors(settings.LedCount);
+            this.ledBehaviorExecutors = GetInitialLedBehaviorExecutors(settings.LedCount);
         }
 
         this.waitHandle.Release();
@@ -81,7 +80,14 @@ internal class LedController(
         this.AssertInitialized();
 
         using ILedStripeControl ledStripeControl = ledStripeControlFactory.Create(this.ledColors!.Length);
+        this.waitHandle.Dispose();
     }
+
+    private static ILedBehaviorExecutor[] GetInitialLedBehaviorExecutors(int ledCount)
+        => Enumerable.Range(0, ledCount)
+            .Select(ILedBehavior (_) => new OffLedBehavior())
+            .Select(LedBehaviorExecutorFactory.Create)
+            .ToArray();
 
     private void AssertInitialized()
     {
@@ -91,14 +97,8 @@ internal class LedController(
         }
     }
 
-    private ILedBehaviorExecutor[] GetInitialLedBehaviorExecutors(int ledCount)
-        => Enumerable.Range(0, ledCount)
-            .Select(ILedBehavior (_) => new OffLedBehavior())
-            .Select(ledBehaviorExecutorFactory.Create)
-            .ToArray();
-
-    private Task WaitForLedUpdateAsync(CancellationToken cancellationToken)
-        => Task.WhenAny(
+    private async Task WaitForLedUpdateAsync(CancellationToken cancellationToken)
+        => await Task.WhenAny(
             this.waitHandle.WaitAsync(cancellationToken),
             this.GetLedAnimationLedUpdateTaskAsync(cancellationToken));
 

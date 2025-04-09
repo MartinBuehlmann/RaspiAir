@@ -1,6 +1,6 @@
 ﻿namespace RaspiAir.Measurement.Services;
 
-using Common.BackgroundServices;
+using AppServices.Common.BackgroundServices;
 using Microsoft.Extensions.DependencyInjection;
 
 public static class ServiceCollectionExtensions

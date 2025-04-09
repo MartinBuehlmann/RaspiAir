@@ -13,9 +13,9 @@ using RaspiAir.Logging;
 using RaspiAir.Web.Api.LiveUpdate;
 using Serilog;
 
-public class Startup
+internal class Startup
 {
-    public void ConfigureServices(IServiceCollection services)
+    public static void ConfigureServices(IServiceCollection services)
     {
         services
             .AddControllers()
@@ -38,7 +38,7 @@ public class Startup
         services.AddSignalRServices();
     }
 
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         if (env.IsDevelopment())
         {

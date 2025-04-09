@@ -6,13 +6,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Sensors", "RaspiAi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Sensors.Scd41", "RaspiAir.Sensors.Scd41\RaspiAir.Sensors.Scd41.csproj", "{62A09028-C485-4BE9-BB46-5FF4DF95F94B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{06BEAAC0-A99E-4B55-8E38-9606D0D543BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppServices.Common", "AppServices.Common\AppServices.Common.csproj", "{06BEAAC0-A99E-4B55-8E38-9606D0D543BE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Measurement.Services", "RaspiAir.Measurement.Services\RaspiAir.Measurement.Services.csproj", "{190CD84D-1E53-45B7-83AD-E67A344F75BE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Startup", "Startup", "{6EB693B3-63BF-489E-BE16-7CFE89389525}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{C2EECD41-91E2-4631-973D-1B2DBCBA28CD}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppServices", "AppServices", "{C2EECD41-91E2-4631-973D-1B2DBCBA28CD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Features", "Features", "{D5C853FE-21CA-4F10-8BCA-1B07B77D60D3}"
 EndProject
@@ -26,23 +26,23 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Co2TrafficLight", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Reporting.Services", "RaspiAir.Reporting.Services\RaspiAir.Reporting.Services.csproj", "{C14927B0-6B03-4D18-BEB6-46D310EAECD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBroker", "EventBroker\EventBroker.csproj", "{7881B10F-3700-4849-916A-0940C52E7C2F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppServices.EventBroker", "AppServices.EventBroker\AppServices.EventBroker.csproj", "{7881B10F-3700-4849-916A-0940C52E7C2F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LedStripe", "LedStripe", "{AF68C51F-6D82-41A4-9BE3-EAC92246DDF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LedStripe.Device", "LedStripe.Device\LedStripe.Device.csproj", "{CA80F937-A056-4BA5-BCAB-5DC29CD7329D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppServices.LedStripe.Device", "AppServices.LedStripe.Device\AppServices.LedStripe.Device.csproj", "{CA80F937-A056-4BA5-BCAB-5DC29CD7329D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LedStripe.Device.Demo", "LedStripe.Device.Demo\LedStripe.Device.Demo.csproj", "{8C2AE6EE-1F1A-464A-8095-C57952C9877D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppServices.LedStripe.Device.Demo", "AppServices.LedStripe.Device.Demo\AppServices.LedStripe.Device.Demo.csproj", "{8C2AE6EE-1F1A-464A-8095-C57952C9877D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LedStripe.Device.Ws2812B", "LedStripe.Device.Ws2812B\LedStripe.Device.Ws2812B.csproj", "{1924FFA6-2835-4502-AF4F-738EFAE848F9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppServices.LedStripe.Device.Ws2812B", "AppServices.LedStripe.Device.Ws2812B\AppServices.LedStripe.Device.Ws2812B.csproj", "{1924FFA6-2835-4502-AF4F-738EFAE848F9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Measurement", "RaspiAir.Measurement\RaspiAir.Measurement.csproj", "{960615A7-37FA-492A-93B3-48E88B238F13}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DocumentStorage", "DocumentStorage", "{6C22F1B3-D6D5-470C-8213-409BCE8A2C26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentStorage", "DocumentStorage\DocumentStorage.csproj", "{1C977781-54CF-4179-80F0-6F77DDB237D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppServices.DocumentStorage", "AppServices.DocumentStorage\AppServices.DocumentStorage.csproj", "{1C977781-54CF-4179-80F0-6F77DDB237D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentStorage.FileBased", "DocumentStorage.FileBased\DocumentStorage.FileBased.csproj", "{FD00F623-698A-4FD9-B24D-2783D4695B6F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppServices.DocumentStorage.FileBased", "AppServices.DocumentStorage.FileBased\AppServices.DocumentStorage.FileBased.csproj", "{FD00F623-698A-4FD9-B24D-2783D4695B6F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Reporting", "RaspiAir.Reporting\RaspiAir.Reporting.csproj", "{9ADF32D5-BE08-42EE-847A-0886D3A15C2D}"
 EndProject
@@ -54,7 +54,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Web.Api", "RaspiAi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Sensors.Demo", "RaspiAir.Sensors.Demo\RaspiAir.Sensors.Demo.csproj", "{3DCD07BD-2777-4C7A-9E42-E8A3667321F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Web.Shared", "RaspiAir.Web.Shared\RaspiAir.Web.Shared.csproj", "{75BE5534-D2B4-4E4C-B3AD-93F73096CD01}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspiAir.Web.Common", "RaspiAir.Web.Common\RaspiAir.Web.Common.csproj", "{75BE5534-D2B4-4E4C-B3AD-93F73096CD01}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DeviceAbstraction", "DeviceAbstraction", "{394A5666-D6C0-46D3-88D2-CF85FE7763E6}"
 EndProject

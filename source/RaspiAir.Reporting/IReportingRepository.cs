@@ -13,9 +13,9 @@ public interface IReportingRepository
 
     public Task<Co2Concentration> RetrieveLatestCo2ConcentrationAsync();
 
-    public Task<IReadOnlyList<Temperature>> RetrieveTemperatureHistoryAsync(DateTimeOffset date);
+    public Task<IReadOnlyList<Temperature>> RetrieveTemperatureHistoryAsync(DateTimeOffset dateTime);
 
-    public Task<IReadOnlyList<Humidity>> RetrieveHumidityHistoryAsync(DateTimeOffset date);
+    public Task<IReadOnlyList<Humidity>> RetrieveHumidityHistoryAsync(DateTimeOffset dateTime);
 
-    public Task<IReadOnlyList<Co2Concentration>> RetrieveCo2ConcentrationHistoryAsync(DateTimeOffset date);
+    public Task<IReadOnlyList<Co2Concentration>> RetrieveCo2ConcentrationHistoryAsync(DateTimeOffset dateTime);
 }

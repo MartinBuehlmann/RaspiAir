@@ -3,9 +3,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Common.BackgroundServices;
+using AppServices.Common.BackgroundServices;
 
-internal class LedService(ILedController ledController) : IBackgroundService
+internal class LedService(ILedController ledController) : IBackgroundService, IDisposable
 {
     private static readonly TimeSpan Timeout = TimeSpan.FromSeconds(5);
     private readonly LedController ledController = (LedController)ledController;
@@ -28,5 +28,11 @@ internal class LedService(ILedController ledController) : IBackgroundService
     {
         await this.cancellationTokenSource.CancelAsync();
         await this.ledServiceTask!.WaitAsync(Timeout, cancellationToken);
+    }
+
+    public void Dispose()
+    {
+        this.cancellationTokenSource.Dispose();
+        this.ledController.Dispose();
     }
 }
