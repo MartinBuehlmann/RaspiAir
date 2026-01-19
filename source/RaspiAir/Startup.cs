@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi;
-using Microsoft.OpenApi.Models;
 using RaspiAir.Logging;
 using RaspiAir.Web.Api.LiveUpdate;
 using Serilog;
